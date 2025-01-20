@@ -19,7 +19,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 const AppSidebar = ({ sidebarOpen }) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
 
-  const role = "Admin"; // Replace with dynamic role fetching logic
+  const role = "User"; // Replace with dynamic role fetching logic
 
   const items = {
     Admin: [
