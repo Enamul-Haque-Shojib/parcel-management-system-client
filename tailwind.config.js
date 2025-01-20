@@ -9,6 +9,11 @@ export default {
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
   		},
+		  gradientColorStops: {
+			blue: ['#ebf8ff', '#3182ce'],
+			green: ['#f0fff4', '#38a169'],
+			yellow: ['#fffaf0', '#d69e2e'],
+		  },
   		colors: {
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
