@@ -59,6 +59,7 @@ import { Button } from "@/components/ui/button";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { Link } from "react-router-dom";
 import MapWithPins from "../Map/MapWithPins";
+import useAuth from "@/hooks/useAuth";
 
 
 
@@ -107,6 +108,9 @@ const parcels = [
 ];
 
 const ParcelTableData = ({ data }) => {
+  // const {role} = useAuth();
+  const role="DeliverMan"
+
   return (
     <TableRow>
       <TableCell className="font-medium">{data.parcelNumber}</TableCell>
@@ -114,18 +118,24 @@ const ParcelTableData = ({ data }) => {
       <TableCell>{data.email}</TableCell>
       <TableCell>{data.price}</TableCell>
       <TableCell>{data.deliveryMan}</TableCell>
-      <TableCell>
 
-
+      {
+        role === "DeliverMan" && (
+          <TableCell>
       <Dialog>
       <DialogTrigger asChild>
         <Button variant="outline">View Location</Button>
       </DialogTrigger>
-     <MapWithPins parcels={parcels}></MapWithPins>
+     <MapWithPins 
+     latitude={data.deliveryAddressLatitude}
+     longitude={data.deliveryAddressLongitude}
+     ></MapWithPins>
     </Dialog>
-
-
       </TableCell>
+        )
+      }
+      
+
       <TableCell className="text-right">
         <Link
           variant="outline"

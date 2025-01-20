@@ -31,15 +31,21 @@ const Login = () => {
   const onSubmit = async (data) => {
     const { email, password } = data;
 
-    try {
-      await signIn(email, password);
-      const tokenData = await saveAuth(data);
-    
-    await setTokenIntoLocalStorage(tokenData?.tokenData)
+   
+      await signIn(email, password)
+      .then(async(res)=>{
+        console.log('------login----->>>>>',res);
+        const tokenData = await saveAuth(data);
+        await setTokenIntoLocalStorage(tokenData?.tokenData)
       navigate(from, { replace: true });
-    } catch (error) {
-      console.log(error);
-    }
+      })
+      .catch(error => {
+        console.log(error)
+      })
+      
+    
+    
+    
   };
 
   const handleGoogleSignIn = async () => {
