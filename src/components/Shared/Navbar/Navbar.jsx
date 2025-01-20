@@ -1,6 +1,7 @@
 import useAuth from '@/hooks/useAuth';
 import React, { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import './Navbar.css'
 
 const Navbar = () => {
     const [open, setOpen] = useState(false);
@@ -35,21 +36,18 @@ const Navbar = () => {
   
         
           <div className="hidden lg:flex space-x-6 items-center">
-            <NavLink
+           
+          </div>
+  
+      
+          <div className="hidden lg:flex items-center space-x-4">
+          <NavLink
               to="/"
               className="transition duration-300 hover:text-yellow-300"
               activeclassname="active"
             >
               Home
             </NavLink>
-            
-           
-           
-            
-          </div>
-  
-      
-          <div className="hidden lg:flex items-center space-x-4">
             {user ? (
               <>
                 <div className="relative">

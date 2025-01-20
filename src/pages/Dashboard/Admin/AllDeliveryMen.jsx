@@ -8,7 +8,7 @@ const AllDeliveryMen = () => {
 
 
     const[deliveryMen, setDeliveryMen] = useState([]);
-    console.log(deliveryMen)
+    
 
     useEffect(() => {
         axiosInstance.get(`/auth?role=DeliverMan`)

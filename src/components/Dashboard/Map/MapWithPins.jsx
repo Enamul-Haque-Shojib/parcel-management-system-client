@@ -1,11 +1,10 @@
 
 
-import { Button } from "@/components/ui/button"
+
 import {
 
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
 
@@ -22,8 +21,8 @@ import "leaflet-routing-machine";
 import iconUrl from "leaflet/dist/images/marker-icon.png";
 import iconShadow from "leaflet/dist/images/marker-shadow.png";
 
-// Custom icon for default center
-import defaultCenterIconUrl from "../../../assets/navigation.png"; // Path to a custom icon file
+
+import defaultCenterIconUrl from "../../../assets/navigation.png"; 
 
 L.Marker.prototype.options.icon = L.icon({
   iconUrl,
@@ -41,6 +40,7 @@ const defaultCenterIcon = L.icon({
 });
 
 const Routing = ({ start, end }) => {
+  console.log(start, end)
   const map = useMap();
 
   useEffect(() => {
@@ -56,22 +56,28 @@ const Routing = ({ start, end }) => {
       draggableWaypoints: false,
       fitSelectedRoutes: true,
       showAlternatives: false,
-      createMarker: () => null, // Prevent additional markers
+      createMarker: () => null, // Do not create default markers
     });
 
     routingControl.addTo(map);
 
-    // Hide the routing control's UI elements
+    // Hide the routing control UI
     const controlContainer = routingControl.getContainer();
     if (controlContainer) {
       controlContainer.style.display = "none";
     }
 
-    return () => map.removeControl(routingControl);
+    // Cleanup function
+    return () => {
+      if (map && routingControl) {
+        map.removeControl(routingControl);
+      }
+    };
   }, [map, start, end]);
 
   return null;
 };
+
 
 
 
@@ -98,7 +104,7 @@ const MapWithPins = (parcel) => {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
 
-        {/* Marker for the default center with a custom icon */}
+     
         <Marker position={defaultCenter} icon={defaultCenterIcon}>
           <Popup>
             <div>
@@ -108,11 +114,8 @@ const MapWithPins = (parcel) => {
           </Popup>
         </Marker>
 
-        {/* Render markers and routes for each parcel */}
-        {/* {parcels.map((parcel, index) => ( */}
-          <React.Fragment 
-          // key={index}
-          >
+  
+          <React.Fragment >
             <Marker position={[parcel.latitude, parcel.longitude]}>
               <Popup>
                 <div>
@@ -126,7 +129,7 @@ const MapWithPins = (parcel) => {
             </Marker>
             <Routing start={defaultCenter} end={[parcel.latitude, parcel.longitude]} />
           </React.Fragment>
-        {/* ))} */}
+  
       </MapContainer>
     </div>
   

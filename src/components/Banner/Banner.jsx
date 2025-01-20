@@ -1,41 +1,47 @@
-import React from 'react';
+import React from "react";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 const Banner = () => {
-    return (
-        <AspectRatio ratio={10 / 5} className="bg-muted">
-            <div 
-                style={{
-                    backgroundImage: "url('https://shipsy.io/wp-content/uploads/2021/05/Blog-119-2.jpg')",
-                    backgroundPosition: "center",
-                    backgroundRepeat: "no-repeat",
-                    backgroundSize: "cover",
-                    backgroundColor: "rgba(0, 0, 0, 0.6)", // Adds a darker overlay
-                    backgroundBlendMode: "lighten",
-                }} 
-                className="h-full w-full rounded-md object-cover relative"
-            >
-                <div 
-                    style={{
-                        backgroundColor: "rgba(0, 0, 0, 0.5)", // Darker overlay for contrast
-                        position: "absolute",
-                        top: 0,
-                        left: 0,
-                        right: 0,
-                        bottom: 0,
-                    }}
-                />
-                <h1 
-                    className="absolute inset-0 flex items-center justify-center text-red-700 font-bold text-5xl"
-                    style={{
-                        textShadow: "2px 2px 4px rgba(0, 0, 0, 0.8)",
-                    }}
-                >
-                    Parcel Management System
-                </h1>
-            </div>
-        </AspectRatio>
-    );
+  return (
+    <AspectRatio ratio={16 / 6} className="bg-muted">
+      <div
+        style={{
+          backgroundImage:
+            "url('https://shipsy.io/wp-content/uploads/2021/05/Blog-119-2.jpg')",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+        }}
+        className="h-full w-full rounded-lg shadow-md relative"
+      >
+        {/* Gradient Overlay */}
+        <div
+          className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-black opacity-60 rounded-lg"
+        />
+
+        {/* Content */}
+        <div className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center">
+          <h1
+            className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4"
+            style={{
+              textShadow: "3px 3px 6px rgba(0, 0, 0, 0.7)",
+            }}
+          >
+            Parcel Management System
+          </h1>
+          <p className="text-lg md:text-xl lg:text-2xl text-gray-200 font-medium max-w-2xl">
+            Secure, fast, and reliable parcel tracking made effortless. Manage
+            your deliveries with ease and confidence.
+          </p>
+          <button
+            className="mt-6 px-8 py-3 bg-red-600 text-white rounded-full font-semibold text-lg shadow-lg hover:bg-red-700 transition-transform transform hover:scale-105"
+          >
+            Get Started
+          </button>
+        </div>
+      </div>
+    </AspectRatio>
+  );
 };
 
 export default Banner;
