@@ -1,31 +1,13 @@
 import React from "react";
-import { Check, ChevronsUpDown } from "lucide-react";
+import { ChevronsUpDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "@/components/ui/command";
-
+import { Command, CommandGroup, CommandItem, CommandList } from "@/components/ui/command";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { cn } from "@/lib/utils";
 import ProfileAvatar from "./ProfileAvatar";
 
-const ProfileBox = ({collapsible}) => {
-  console.log(collapsible)
-  const frameworks = [
-   
-    {
-      value: "logout",
-      label: "Logout",
-    },
-  ];
-
+const ProfileBox = ({ collapsible }) => {
+  const options = [{ value: "logout", label: "Logout" }];
   const [open, setOpen] = React.useState(false);
-  const [value, setValue] = React.useState("");
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -34,36 +16,26 @@ const ProfileBox = ({collapsible}) => {
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className={collapsible ? 'w-[200px] justify-between' : 'w-[50px] justify-between'}
+          className={collapsible ? "w-[200px] justify-between" : "w-[50px]"}
         >
-          {/* <ProfileAvatar show={false}></ProfileAvatar> */}
           <ProfileAvatar show={collapsible} />
-          {
-            collapsible && <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-          }
-          
+          {collapsible && <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[500px] p-5 border " side="right">
+      <PopoverContent className="w-[300px] p-5 border">
         <Command>
           <CommandList>
-            
             <CommandGroup>
-                <CommandItem>
-                <ProfileAvatar show={true}></ProfileAvatar>
-                </CommandItem>
-              {frameworks.map((framework) => (
+              {options.map((option) => (
                 <CommandItem
-                className='cursor-pointer'
-                  key={framework.value}
-                  value={framework.value}
-                  onSelect={(currentValue) => {
-                    setValue(currentValue === value ? "" : currentValue);
+                  key={option.value}
+                  className="cursor-pointer hover:bg-gray-100 rounded-md"
+                  onSelect={() => {
+                    console.log(option.value);
                     setOpen(false);
                   }}
                 >
-                  
-                  {framework.label}
+                  {option.label}
                 </CommandItem>
               ))}
             </CommandGroup>

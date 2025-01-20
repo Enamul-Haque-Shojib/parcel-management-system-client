@@ -1,6 +1,7 @@
 import useAxiosSecure from '@/hooks/useAxiosSecure';
 import React, { useEffect, useState } from 'react';
 import { FaBox, FaTruck, FaMobileAlt } from 'react-icons/fa';
+import CountUp from 'react-countup';
 
 const Stats = () => {
   const [statsNumber, setStatsNumber] = useState({
@@ -20,7 +21,7 @@ const Stats = () => {
 
   return (
     <div className="lg:w-[90%] w-[95%] mx-auto my-10">
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 p-6 rounded-xl bg-gradient-to-br from-blue-50 to-gray-100 shadow-md">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 p-6 rounded-xl bg-gradient-to-br from-blue-50 to-gray-100">
         {/* Parcels Booked */}
         <div className="stat flex flex-col items-center p-6 bg-gradient-to-b from-white to-blue-50 rounded-lg shadow hover:shadow-lg transform hover:-translate-y-2 transition-all duration-300">
           <FaBox className="text-blue-600 text-5xl mb-4 animate-pulse" />
@@ -28,7 +29,13 @@ const Stats = () => {
             Parcels Booked
           </div>
           <div className="stat-value text-4xl font-bold text-blue-700 text-center mt-2">
-            {statsNumber.numberBooked}+
+            <CountUp
+              start={0}
+              end={statsNumber.numberBooked}
+              duration={2}
+              separator=","
+              suffix="+"
+            />
           </div>
           <div className="stat-desc text-sm text-gray-500 text-center mt-1">
             Total bookings made
@@ -42,7 +49,13 @@ const Stats = () => {
             Parcels Delivered
           </div>
           <div className="stat-value text-4xl font-bold text-green-700 text-center mt-2">
-            {statsNumber.numberDelivered}+
+            <CountUp
+              start={0}
+              end={statsNumber.numberDelivered}
+              duration={2}
+              separator=","
+              suffix="+"
+            />
           </div>
           <div className="stat-desc text-sm text-gray-500 text-center mt-1">
             Successfully delivered
@@ -56,7 +69,13 @@ const Stats = () => {
             Using Our App
           </div>
           <div className="stat-value text-4xl font-bold text-yellow-700 text-center mt-2">
-            {statsNumber.numberUsingApp}+
+            <CountUp
+              start={0}
+              end={statsNumber.numberUsingApp}
+              duration={2}
+              separator=","
+              suffix="+"
+            />
           </div>
           <div className="stat-desc text-sm text-gray-500 text-center mt-1">
             Active app users
