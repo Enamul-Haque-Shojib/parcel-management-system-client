@@ -109,17 +109,49 @@ const parcels = [
 
 const ParcelTableData = ({ data }) => {
   // const {role} = useAuth();
-  const role="DeliverMan"
+  
+  const role="User"
 
   return (
     <TableRow>
-      <TableCell className="font-medium">{data.parcelNumber}</TableCell>
-      <TableCell>{data.name}</TableCell>
-      <TableCell>{data.email}</TableCell>
-      <TableCell>{data.price}</TableCell>
-      <TableCell>{data.deliveryMan}</TableCell>
-
+      <TableCell>{data.parcelNumber}</TableCell>
       {
+        role == "User" && (
+          <>
+          <TableCell>{data.parcelType}</TableCell>
+          <TableCell>{data.bookingDate.slice(0, 10)}</TableCell>
+          <TableCell>{data.requestedDeliveryDate.slice(0, 10)}</TableCell>
+          <TableCell>{data.ApproximateDeliveryDate.slice(0, 10)}</TableCell>
+          <TableCell>{data.deliveryMan}</TableCell>
+          <TableCell>{data.bookingStatus}</TableCell>
+          <TableCell className="text-right">
+        <Link
+          variant="outline"
+          className="bg-yellow-600"
+          to={`update-parcel/${data._id}`}
+        >
+          Update
+        </Link>
+        <Button>Cancel</Button>
+      </TableCell>
+      <TableCell className="text-right">
+        <Button>Review</Button>
+      </TableCell>
+      <TableCell className="text-right">
+        <Button>Pay</Button>
+      </TableCell>
+          </>
+        )
+      }
+      
+      
+      
+      
+      
+    
+      
+
+      {/* {
         role === "DeliverMan" && (
           <TableCell>
       <Dialog>
@@ -134,18 +166,12 @@ const ParcelTableData = ({ data }) => {
     </Dialog>
       </TableCell>
         )
-      }
+      } */}
       
 
-      <TableCell className="text-right">
-        <Link
-          variant="outline"
-          className="bg-yellow-600"
-          to={`update-parcel/${data._id}`}
-        >
-          Update
-        </Link>
-      </TableCell>
+      
+    
+   
     </TableRow>
   );
 };

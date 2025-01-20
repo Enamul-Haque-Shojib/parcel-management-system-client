@@ -8,10 +8,11 @@ const MyParcels = () => {
 
     const[myParcels, setMyParcels] = useState([]);
     
+
     const token = JSON.parse(localStorage.getItem('ParcelManagementSystemToken'))
-console.log(token)
+
     useEffect(() => {
-        axiosInstance.get(`/parcels?email=charlie.green5@example.com`,
+        axiosInstance.get(`/parcels`,
             {
                 headers:{
                     "Authorization" : `${token.token}`
