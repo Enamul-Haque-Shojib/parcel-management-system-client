@@ -10,7 +10,7 @@ const MyDeliveryList = () => {
     
 
     useEffect(() => {
-        axiosInstance.get(`/parcels?deliveryMan=DM-0003`)
+        axiosInstance.get(`/parcels`)
         .then(res => {
             setDeliveryList(res.data.data);
          })

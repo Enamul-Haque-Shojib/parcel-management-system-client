@@ -23,7 +23,7 @@ const AllUsers = () => {
         <div>
 
     
-        <UsersTable userData={customers} handleCustomers='cusomer' role='customer'></UsersTable>
+        <UsersTable userData={customers} tableRole='User'></UsersTable>
 
         </div>
     );

@@ -3,17 +3,22 @@ import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, For
 import { Input } from '@/components/ui/input';
 import useAuth from '@/hooks/useAuth';
 import { imageUpload, saveAuth, setTokenIntoLocalStorage } from '@/utils/utils';
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 
 
 const Register = () => {
     const navigate = useNavigate();
+    const [roleSignUp, setRoleSignUp] = useState('User');
     const {createUser, updateUserProfile, signInWithGoogle, user, loading} = useAuth();
 
     const location = useLocation()
-    const from = location?.state?.from?.pathname || '/'
+    const from = location?.state?.from?.pathname || '/';
+
+    const handleRoleSignUp = (roleName) =>{
+      setRoleSignUp(roleName);
+  }
  
 
     const form = useForm({
@@ -34,7 +39,7 @@ const Register = () => {
           const password = data.password;
           const authImgUrl = await imageUpload(imageFile);
           const authPhoneNumber = data.authPhoneNumber;
-          const role = 'User'
+          const role = roleSignUp
           
   
           try {
@@ -52,13 +57,6 @@ const Register = () => {
                 role
               }
               
-  
-            const tokenData = await saveAuth(userInfo);
-            await setTokenIntoLocalStorage(tokenData?.tokenData)
-             
-          navigate(from, { replace: true })
-  
-            
   
           } catch (error) {
             console.log(error)
@@ -89,6 +87,16 @@ const Register = () => {
   
       return (
           <div className="w-[50%] mx-auto">
+            <h1 className="text-3xl font-bold text-center text-green-800 mb-6">
+              Create an Account
+            </h1>
+            <p className="text-gray-500 text-center mb-8">
+              Sign up for <span className='cursor-pointer underline text-xl font-bold text-green-600' onClick={()=>{handleRoleSignUp('Deliver Man')}}>Deliver Man</span> or <span className='cursor-pointer text-xl underline font-bold text-blue-600' onClick={()=>{handleRoleSignUp('User')}}>User</span>
+            </p>
+
+            {
+                roleSignUp === 'User' ? <h1 className='text-3xl text-center my-6 font-bold text-blue-600'>User</h1> : <h1 className='text-3xl text-center my-6 font-bold text-green-600'>Deliver Man</h1>
+            }
            {loading ? (
         <p>Loading...</p>
       ) : user ? (
@@ -187,7 +195,12 @@ const Register = () => {
           />
           <Button type="submit">Submit</Button>
           </form>
-          <Button onClick={handleGoogleSignUp}>Sign Up with Google</Button>
+          {
+            roleSignUp === "User" && (
+              <Button onClick={handleGoogleSignUp}>Sign Up with Google</Button>
+            )
+          }
+          
           </Form>
       )}
           

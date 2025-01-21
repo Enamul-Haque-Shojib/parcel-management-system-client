@@ -6,13 +6,13 @@ import Register from "@/pages/Register/Register";
 import {
     createBrowserRouter,
 } from "react-router-dom";
-import PrivateRoute from "./PrivateRoute";
+
 import DashboardLayout from "@/layouts/DashboardLayout";
 import Statistics from "@/pages/Dashboard/Admin/Statistics";
 import BookParcel from "@/pages/Dashboard/Customer/BookParcel";
 import MyParcels from "@/pages/Dashboard/Customer/MyParcels";
 import MyDeliveryList from "@/pages/Dashboard/DeliverMan/MyDeliveryList";
-import Profile from "@/pages/Dashboard/Common/Profile";
+
 import MyReviews from "@/pages/Dashboard/DeliverMan/MyReviews";
 
 import AllDeliveryMen from "@/pages/Dashboard/Admin/AllDeliveryMen";
@@ -21,6 +21,11 @@ import UpdateParcel from "@/components/Dashboard/UpdateParcel/UpdateParcel";
 
 import AllUsers from "@/pages/Dashboard/Admin/AllUsers";
 import WelcomePage from "@/pages/Dashboard/WelcomePage/WelcomePage";
+import PrivateRoute from "./PrivateRoute";
+import Profile from "@/pages/Dashboard/Customer/Profile";
+
+
+
 
 
 export const router = createBrowserRouter([
@@ -37,116 +42,128 @@ export const router = createBrowserRouter([
     },
     { path: '/login', element: <Login /> },
     { path: '/register', element: <Register /> },
+    
    
     {
       path: '/dashboard',
       element: (
-        // <PrivateRoute>
+        <PrivateRoute>
           <DashboardLayout />
-        // </PrivateRoute>
+        </PrivateRoute>
       ),
       children: [
         {
           index: true,
         
           element: (
-            // <PrivateRoute>
+            <PrivateRoute>
               <WelcomePage />
-            // </PrivateRoute>
+             </PrivateRoute>
           ),
         },
         {
-          path: 'statistics', // Explicit route for "/dashboard/statistics"
-          element: <Statistics />,
+          path: 'statistics', 
+          
+          element:<PrivateRoute> <Statistics /></PrivateRoute>
+          
         },
         {
           
           path: 'book-parcel',
-          element: (
-            // <PrivateRoute>
-              // <SellerRoute>
+          element: 
+             <PrivateRoute>
+              
                 <BookParcel />
-              // </SellerRoute>
-            // </PrivateRoute>
-          ),
+             
+            </PrivateRoute>
+          
         },
         {
           path: 'my-parcels',
           element: (
-            // <PrivateRoute>
-              // <SellerRoute>
+            <PrivateRoute>
                 <MyParcels></MyParcels>
-              // </SellerRoute>
-            // </PrivateRoute>
+          </PrivateRoute>
           ),
         },
         {
           path: 'my-delivery-list',
           element: (
-            // <PrivateRoute>
-              // <AdminRoute>
+             <PrivateRoute>
                 <MyDeliveryList />
-              // </AdminRoute>
-            // </PrivateRoute>
+            </PrivateRoute>
           ),
         },
         {
           path: 'profile',
           element: (
-            // <PrivateRoute>
-              <Profile />
-            // </PrivateRoute>
+            <PrivateRoute>
+              <Profile/>
+             </PrivateRoute>
           ),
         },
         {
           path: 'my-reviews',
           element: (
-            // <PrivateRoute>
+            <PrivateRoute>
               <MyReviews />
-            // </PrivateRoute>
+          </PrivateRoute>
           ),
         },
         {
           path: 'all-users',
           element: (
-            // <PrivateRoute>
-            //   <SellerRoute>
+            <PrivateRoute>
+           
                 <AllUsers />
-            //   </SellerRoute>
-            // </PrivateRoute>
+         
+           </PrivateRoute>
           ),
         },
         {
           path: 'all-delivery-men',
           element: (
-            // <PrivateRoute>
-            //   <SellerRoute>
+           <PrivateRoute>
+         
                 <AllDeliveryMen />
-            //   </SellerRoute>
-            // </PrivateRoute>
+      
+            </PrivateRoute>
           ),
         },
         {
           path: 'all-parcels',
           element: (
-            // <PrivateRoute>
-            //   <SellerRoute>
+             <PrivateRoute>
+      
                 <AllParcels />
-            //   </SellerRoute>
-            // </PrivateRoute>
+        
+            </PrivateRoute>
           ),
         },
         {
           path: 'my-parcels/update-parcel/:id',
           element: (
-            // <PrivateRoute>
-            //   <SellerRoute>
+             <PrivateRoute>
+      
                 <UpdateParcel />
-            //   </SellerRoute>
-            // </PrivateRoute>
+         
+            </PrivateRoute>
             
           ),
-          loader: ({params}) => fetch(`${import.meta.env.VITE_API_URL}/api/parcels/${params.id}`)
+          loader: ({params}) => fetch(`${import.meta.env.VITE_API_URL}/parcels/${params.id}`)
+        },
+        {
+          path: 'profile/:email',
+          element: (
+             <PrivateRoute>
+      
+                <Profile></Profile>
+         
+            </PrivateRoute>
+            
+          ),
+        
+       
         },
         
       ],

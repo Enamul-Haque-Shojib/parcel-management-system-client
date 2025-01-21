@@ -35,6 +35,7 @@ const AppSidebar = ({ sidebarOpen }) => {
     User: [
       { title: "Book Parcel", url: "book-parcel", icon: BookDown },
       { title: "My Parcels", url: "my-parcels", icon: Package },
+      { title: "Profile", url: "profile", icon: User },
     ],
   };
 
@@ -53,7 +54,7 @@ const AppSidebar = ({ sidebarOpen }) => {
           
           {sidebarOpen && <h1 className="text-2xl font-bold">Parcel Warehouse</h1>}
         </div>
-        <Search className="w-5 h-5 cursor-pointer hover:opacity-75" />
+        <Search className="w-5 h-5 hover:opacity-75" />
       </SidebarHeader>
 
       {/* Content */}

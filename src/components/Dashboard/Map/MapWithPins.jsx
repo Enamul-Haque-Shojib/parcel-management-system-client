@@ -1,29 +1,20 @@
-
-
-
+import React, { useEffect, useState } from "react";
 import {
-
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-
-} from "@/components/ui/dialog"
-
- 
-import React, { useEffect } from "react";
+} from "@/components/ui/dialog";
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import "leaflet-routing-machine";
 
-// Default marker icons
 import iconUrl from "leaflet/dist/images/marker-icon.png";
 import iconShadow from "leaflet/dist/images/marker-shadow.png";
+import defaultCenterIconUrl from "../../../assets/navigation.png";
 
-
-import defaultCenterIconUrl from "../../../assets/navigation.png"; 
-
+// Default marker icons
 L.Marker.prototype.options.icon = L.icon({
   iconUrl,
   shadowUrl: iconShadow,
@@ -40,7 +31,6 @@ const defaultCenterIcon = L.icon({
 });
 
 const Routing = ({ start, end }) => {
-  console.log(start, end)
   const map = useMap();
 
   useEffect(() => {
@@ -50,7 +40,7 @@ const Routing = ({ start, end }) => {
       waypoints: [L.latLng(...start), L.latLng(...end)],
       routeWhileDragging: true,
       lineOptions: {
-        styles: [{ color: "blue", weight: 4 }],
+        styles: [{ color: "#007bff", weight: 4 }],
       },
       addWaypoints: false,
       draggableWaypoints: false,
@@ -61,13 +51,11 @@ const Routing = ({ start, end }) => {
 
     routingControl.addTo(map);
 
-    // Hide the routing control UI
     const controlContainer = routingControl.getContainer();
     if (controlContainer) {
       controlContainer.style.display = "none";
     }
 
-    // Cleanup function
     return () => {
       if (map && routingControl) {
         map.removeControl(routingControl);
@@ -78,76 +66,86 @@ const Routing = ({ start, end }) => {
   return null;
 };
 
+const MapWithPins = ({ parcel }) => {
+  const [loading, setLoading] = useState(true);
 
-
-
-const MapWithPins = (parcel) => {
-  const defaultCenter = [23.8429, 90.4004]; // Default starting point
+  const defaultCenter = [23.8429, 90.4004];
   const defaultZoom = 11;
+
+  useEffect(() => {
+    setTimeout(() => setLoading(false), 1000); // Simulate loading
+  }, []);
+
+  if (!parcel || !parcel.latitude || !parcel.longitude) {
+    return (
+      <DialogContent className="sm:max-w-[600px]">
+        <DialogHeader>
+          <DialogTitle>Error</DialogTitle>
+          <DialogDescription>Invalid location data provided.</DialogDescription>
+        </DialogHeader>
+      </DialogContent>
+    );
+  }
+
   return (
-    <DialogContent className="sm:max-w-[600px]">
-    <DialogHeader>
-      <DialogTitle>View Location</DialogTitle>
-      <DialogDescription>
-        Make changes to your profile here. Click save when you're done.
-      </DialogDescription>
-    </DialogHeader>
-    <div className="w-full h-[500px]">
-      <MapContainer
-        center={defaultCenter}
-        zoom={defaultZoom}
-        scrollWheelZoom={false}
-        className="w-full h-full rounded-lg shadow-md"
-      >
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
+    <DialogContent className="sm:max-w-[600px] p-4">
+      <DialogHeader>
+        <DialogTitle className="text-lg font-semibold">View Location</DialogTitle>
+        <DialogDescription className="text-sm text-gray-600">
+          Explore the location details below.
+        </DialogDescription>
+      </DialogHeader>
+      <div className="w-full h-[500px] relative">
+        {loading && (
+          <div className="absolute inset-0 flex items-center justify-center bg-white z-10">
+            <div className="loader border-t-4 border-blue-500 w-12 h-12 rounded-full animate-spin"></div>
+          </div>
+        )}
+        <MapContainer
+          center={defaultCenter}
+          zoom={defaultZoom}
+          scrollWheelZoom={true}
+          className="w-full h-full rounded-lg shadow-md"
+        >
+          <TileLayer
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
 
-     
-        <Marker position={defaultCenter} icon={defaultCenterIcon}>
-          <Popup>
-            <div>
-              <h3 className="font-semibold">Starting Point</h3>
-              <p>Coordinates: {defaultCenter[0]}, {defaultCenter[1]}</p>
-            </div>
-          </Popup>
-        </Marker>
+          <Marker position={defaultCenter} icon={defaultCenterIcon}>
+            <Popup>
+              <div className="text-sm">
+                <h3 className="font-semibold">Starting Point</h3>
+                <p>Coordinates: {defaultCenter[0]}, {defaultCenter[1]}</p>
+              </div>
+            </Popup>
+          </Marker>
 
-  
-          <React.Fragment >
-            <Marker position={[parcel.latitude, parcel.longitude]}>
-              <Popup>
-                <div>
-                  <h3 className="font-semibold">{parcel.name}</h3>
-                  <p>{parcel.description}</p>
-                  <p>
-                    <strong>Coordinates:</strong> {parcel.latitude}, {parcel.longitude}
-                  </p>
-                </div>
-              </Popup>
-            </Marker>
-            <Routing start={defaultCenter} end={[parcel.latitude, parcel.longitude]} />
-          </React.Fragment>
-  
-      </MapContainer>
-    </div>
-  
-  </DialogContent>
+          <Marker position={[parcel.latitude, parcel.longitude]}>
+            <Popup>
+              <div className="text-sm">
+                <h3 className="font-semibold">{parcel.name}</h3>
+                <p>{parcel.description}</p>
+                <p>
+                  <strong>Coordinates:</strong> {parcel.latitude}, {parcel.longitude}
+                </p>
+              </div>
+            </Popup>
+          </Marker>
+
+          <Routing start={defaultCenter} end={[parcel.latitude, parcel.longitude]} />
+        </MapContainer>
+      </div>
+      <div className="mt-4 flex justify-center">
+        <button
+          className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
+          onClick={() => window.location.reload()}
+        >
+          Reload Map
+        </button>
+      </div>
+    </DialogContent>
   );
 };
 
 export default MapWithPins;
-
-
-
-
-
-
-
-
-
-
-
-
-

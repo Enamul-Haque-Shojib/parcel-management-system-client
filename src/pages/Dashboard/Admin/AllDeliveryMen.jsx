@@ -22,7 +22,7 @@ const AllDeliveryMen = () => {
     return (
         <div>
 
-<UsersTable userData={deliveryMen} handleDeliveryMan='deliver' role='deliver-man'></UsersTable>
+<UsersTable userData={deliveryMen} tableRole='DeliverMan'></UsersTable>
  
 
         </div>

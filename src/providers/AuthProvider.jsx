@@ -54,6 +54,7 @@ const AuthProvider = ({children}) => {
     useEffect(() => {
       const unsubscribe = onAuthStateChanged(auth, async currentUser => {
         console.log('CurrentUser-->', currentUser?.email)
+  
         if (currentUser?.email) {
           setUser(currentUser)
 
@@ -82,9 +83,7 @@ const AuthProvider = ({children}) => {
         }
          else {
           setUser(currentUser)
-          // await axios.get(`${import.meta.env.VITE_API_URL}/logout`, {
-          //   withCredentials: true,
-          // })
+        
           setRole(null);
           localStorage.removeItem('ParcelManagementSystemToken');
         }

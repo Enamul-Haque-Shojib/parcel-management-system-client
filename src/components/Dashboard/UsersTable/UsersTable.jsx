@@ -13,21 +13,45 @@ import {
 import TableData from './TableData';
 
 const UsersTable = (props) => {
-    
-    const {userData, handleCustomers, handleDeliveryMan, role} = props;
+    const {userData, tableRole} = props;
+    console.log(tableRole);
+  
   
     // const userData = role === 'customer' ? customers : deliveryMen;
+   
   
     return (
         <div>
             <Table>
-      <TableCaption> A list of {role === 'customer' ? 'Customers' : 'Delivery Men'}.</TableCaption>
+      <TableCaption> A list of {tableRole === 'User' ? 'User' : 'Delivery Men'}.</TableCaption>
       <TableHeader>
         <TableRow>
-          <TableHead className="w-[100px]">Name</TableHead>
-          <TableHead>email</TableHead>
+        <TableHead className="w-[100px]">User Id</TableHead>
+          {
+            tableRole === 'User' && (
+              <>
+              <TableHead className="">Name</TableHead>
+              <TableHead className="">Phone Number</TableHead>
+              <TableHead className="">Total Parcels</TableHead>
+              <TableHead className="">Total Cost</TableHead>
+              <TableHead className="">Make Deliver Man</TableHead>
+              <TableHead className="">Make Admin</TableHead>
+              </>
+            )
+          }
+          {
+            tableRole === "DeliverMan" && (
+              <>
+               <TableHead className="">Name</TableHead>
+               <TableHead className="">Phone Number</TableHead>
+               <TableHead className="">Total Delivered</TableHead>
+               <TableHead className="">Average review</TableHead>
+              </>
+            )
+          }
+         
           
-          <TableHead className="text-right">Phone Number</TableHead>
+         
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -35,6 +59,7 @@ const UsersTable = (props) => {
           <TableData
           key={data._id}
           data={data}
+          tableRole={tableRole}
           ></TableData>
         ))}
       </TableBody>

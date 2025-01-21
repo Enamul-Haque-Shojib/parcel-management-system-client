@@ -1,35 +1,49 @@
-import ReviewCard from '@/components/Dashboard/ReviewCard/ReviewCard';
-import useAxiosSecure from '@/hooks/useAxiosSecure';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
+import ReviewCard from "@/components/Dashboard/ReviewCard/ReviewCard";
+import useAxiosSecure from "@/hooks/useAxiosSecure";
+import { Loader } from "lucide-react";
 
 const MyReviews = () => {
-    const axiosInstance = useAxiosSecure();
+  const axiosInstance = useAxiosSecure();
+  const [reviews, setReviews] = useState([]);
+  const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+    axiosInstance
+      .get(`/auth/get-reviews/DM-0004`)
+      .then((res) => {
+        setReviews(res.data.data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Failed to fetch reviews:", error);
+        setLoading(false);
+      });
+  }, []);
 
-    const[reviews, setReviews] = useState([]);
-    
-
-    useEffect(() => {
-        axiosInstance.get(`/auth/get-reviews/DM-0004`)
-        .then(res => {
-            setReviews(res.data.data);
-         })
-    },[]);
-
-
-
+  if (loading) {
     return (
-        <div className='grid grid-cols-3 gap-3'>
-            {
-                reviews.map((review) => (
-                    <ReviewCard
-                    key={review._id}
-                    review={review}
-                    ></ReviewCard>
-                  ))
-            }
-        </div>
+      <div className="flex justify-center items-center h-96">
+        <Loader className="animate-spin text-gray-400 w-10 h-10" />
+      </div>
     );
+  }
+
+  if (reviews.length === 0) {
+    return (
+      <div className="flex justify-center items-center h-96 text-gray-500 text-lg">
+        No reviews available.
+      </div>
+    );
+  }
+
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
+      {reviews.map((review) => (
+        <ReviewCard key={review._id} review={review} />
+      ))}
+    </div>
+  );
 };
 
 export default MyReviews;

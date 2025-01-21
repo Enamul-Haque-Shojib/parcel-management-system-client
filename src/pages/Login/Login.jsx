@@ -34,7 +34,7 @@ const Login = () => {
    
       await signIn(email, password)
       .then(async(res)=>{
-        console.log('------login----->>>>>',res);
+       
         const tokenData = await saveAuth(data);
         await setTokenIntoLocalStorage(tokenData?.tokenData)
       navigate(from, { replace: true });

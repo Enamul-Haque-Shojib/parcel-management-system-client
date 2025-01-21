@@ -1,51 +1,3 @@
-// import { Button } from '@/components/ui/button';
-// import { TableCell, TableRow } from '@/components/ui/table';
-// import React from 'react';
-
-
-// import {
-//   Sheet,
-//   SheetTrigger,
-// } from "@/components/ui/sheet"
-// import UpdateParcel from '../UpdateParcel/UpdateParcel';
-
-// const ParcelTableData = (props) => {
-//     const {data} = props;
-
-    
-
-//     const handleUpdateParcel = (data) => {
-        
-//     }
-//             return (
-                
-//                     <TableRow>
-//                     <TableCell className="font-medium">{data.parcelNumber}</TableCell>
-//                     <TableCell>{data.name}</TableCell>
-//                     <TableCell>{data.email}</TableCell>
-//                     <TableCell>{data.price}</TableCell>
-//                     <TableCell>{data.deliveryMan}</TableCell>
-//                     <TableCell className="text-right">
-
-//                     <Sheet>
-//                         <SheetTrigger asChild>
-//                                 <Button 
-//                                 variant="outline" className="bg-yellow-600"
-//                                 onClick = {() =>{handleUpdateParcel(data)}}
-//                                 >Update</Button>
-                               
-//                         </SheetTrigger>
-//                         <UpdateParcel updateForData={}></UpdateParcel>
-//                         </Sheet>
-
-//                         </TableCell>
-//                     </TableRow>
-             
-//             );
-// };
-
-// export default ParcelTableData;
-
 
 
 import {
@@ -53,64 +5,57 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 
- 
-import React from "react";
+import { useToast } from "@/hooks/use-toast"
+
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { Link } from "react-router-dom";
 import MapWithPins from "../Map/MapWithPins";
 import useAuth from "@/hooks/useAuth";
+import ManageDeliveryMen from "../MangeDelieveryMen/ManageDeliveryMen";
+import useAxiosSecure from "@/hooks/useAxiosSecure";
+import UserReview from "../UserReview/UserReview";
+import SuccessPayment from "../Payment/SuccessPayment";
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-const parcels = [
-  // {
-  //   name: "Parcel 1",
-  //   description: "Delivered to London",
-  //   latitude: 23.8103,
-  //   longitude: 90.4125,
-  // },
-  // {
-  //   name: "Parcel 2",
-  //   description: "Delivered to Manchester",
-  //   latitude: 23.7337,
-  //   longitude: 90.3928,
-  // },
-  // {
-  //   name: "Parcel 3",
-  //   description: "Delivered to Edinburgh",
-  //   latitude: 23.7514,
-  //   longitude: 90.3910,
-  // },
-  // {
-  //   name: "Parcel 4",
-  //   description: "Delivered to Edinburgh",
-  //   latitude: 23.7198,
-  //   longitude: 90.3883,
-  // },
-  {
-    name: "Parcel 4",
-    description: "Delivered to Edinburgh",
-    latitude:  23.8749,
-    longitude: 90.3984,
-  },
-];
 
 const ParcelTableData = ({ data }) => {
+  
+  const  toast  = useToast()
+  const axiosInstance = useAxiosSecure()
+  const [approximateDeliveryDate, setApproximateDeliveryDate] = useState(data.ApproximateDeliveryDate);
+  const [deliverMan, setDeliverMan] = useState(data.deliveryMan);
+  const [bookingStatus, setBookingStatus] = useState(data.bookingStatus);
   // const {role} = useAuth();
   
-  const role="User"
+  const role="User";
+
+
+  const handleStatus = async(id,status) => {
+    try {
+      console.log(status);
+      const statusChange = {
+        bookingStatus: status,
+      };
+      const response = await axiosInstance.patch(`/auth/parcel-status/${id}`, statusChange);
+      // console.log(response.data.data);
+      setBookingStatus(status);
+      toast({
+        title: `Successfully ${status}`,
+      });
+    } catch (error) {
+      console.error("Error updating status:", error);
+      toast({
+        title: "Failed to update status",
+        description: error.message,
+        variant: "destructive",
+      });
+    }
+  }
+
 
   return (
     <TableRow>
@@ -121,9 +66,9 @@ const ParcelTableData = ({ data }) => {
           <TableCell>{data.parcelType}</TableCell>
           <TableCell>{data.bookingDate.slice(0, 10)}</TableCell>
           <TableCell>{data.requestedDeliveryDate.slice(0, 10)}</TableCell>
-          <TableCell>{data.ApproximateDeliveryDate.slice(0, 10)}</TableCell>
-          <TableCell>{data.deliveryMan}</TableCell>
-          <TableCell>{data.bookingStatus}</TableCell>
+          <TableCell>{approximateDeliveryDate}</TableCell>
+          <TableCell>{deliverMan}</TableCell>
+          <TableCell>{bookingStatus}</TableCell>
           <TableCell className="text-right">
         <Link
           variant="outline"
@@ -132,29 +77,73 @@ const ParcelTableData = ({ data }) => {
         >
           Update
         </Link>
-        <Button>Cancel</Button>
+        <Button onClick={()=>{handleStatus(data._id, 'Canceled')}} disabled = {data.bookingStatus !=='Pending'}>Cancel</Button>
       </TableCell>
-      <TableCell className="text-right">
-        <Button>Review</Button>
+      <TableCell>
+      <Dialog>
+      <DialogTrigger asChild>
+        
+        <Button variant="outline" disabled = {data.bookingStatus!=='Delivered'}>Review</Button>
+      </DialogTrigger>
+      <UserReview parcelId={data._id} deliverManId={data.deliveryMan}></UserReview>
+    </Dialog>
+        
       </TableCell>
-      <TableCell className="text-right">
+      <TableCell >
+        
+        <Dialog>
+      <DialogTrigger asChild>
+        
         <Button>Pay</Button>
+      </DialogTrigger>
+      <SuccessPayment></SuccessPayment>
+    </Dialog>
       </TableCell>
           </>
         )
       }
+      {
+        role == "Admin" && (
+          <>
+          <TableCell>{data.name}</TableCell>
+          <TableCell>{data.senderPhoneNumber}</TableCell>
+          <TableCell>{data.bookingDate.slice(0, 10)}</TableCell>
+          <TableCell>{data.requestedDeliveryDate.slice(0, 10)}</TableCell>
+          <TableCell>{data.price}</TableCell>
+          <TableCell>{data.ApproximateDeliveryDate}</TableCell>
+          <TableCell>{data.deliveryMan}</TableCell>
+          <TableCell>{data.bookingStatus}</TableCell>
+          <TableCell >
+            <Dialog>
+      <DialogTrigger asChild>
+        <Button variant="outline">Mange</Button>
+      </DialogTrigger>
+      <ManageDeliveryMen 
+      parcelId={data._id} 
+      parcelNumber={data.parcelNumber} 
+      setApproximateDeliveryDate={setApproximateDeliveryDate}
+      setDeliverMan = {setDeliverMan}
+      setBookingStatus = {setBookingStatus}
+      ></ManageDeliveryMen>
+    </Dialog>
+          </TableCell>
       
       
-      
-      
-      
-    
-      
-
-      {/* {
+          </>
+        )
+      }
+      {
         role === "DeliverMan" && (
-          <TableCell>
-      <Dialog>
+          <>
+          <TableCell>{data.name}</TableCell>
+          <TableCell>{data.senderPhoneNumber}</TableCell>
+          <TableCell>{data.requestedDeliveryDate.slice(0, 10)}</TableCell>
+          <TableCell>{approximateDeliveryDate}</TableCell>
+          <TableCell>{data.receiverName}</TableCell>
+          <TableCell>{data.receiverPhoneNumber}</TableCell>
+          <TableCell>{data.parcelDeliveryAddress}</TableCell>
+          <TableCell >
+          <Dialog>
       <DialogTrigger asChild>
         <Button variant="outline">View Location</Button>
       </DialogTrigger>
@@ -164,13 +153,19 @@ const ParcelTableData = ({ data }) => {
      longitude={data.deliveryAddressLongitude}
      ></MapWithPins>
     </Dialog>
-      </TableCell>
+          </TableCell>
+          <TableCell >
+            <Button onClick={()=>{handleStatus(data._id, 'Canceled')}}>Cancel</Button>
+          </TableCell>
+          <TableCell >
+            <Button onClick={()=>{handleStatus(data._id, 'Delivered')}}>Delivered</Button>
+          </TableCell>
+      
+      
+          </>
         )
-      } */}
+      }
       
-
-      
-    
    
     </TableRow>
   );
