@@ -133,7 +133,7 @@ const AppSidebar = ({ sidebarOpen }) => {
           >Logout</Button>
         )}
         {!sidebarOpen && (
-          <LogOut className="w-5 h-5 cursor-pointer"></LogOut>
+          <LogOut className="w-5 h-5 cursor-pointer" onClick={handleLogOut}></LogOut>
         )}
       </SidebarFooter>
     </Sidebar>

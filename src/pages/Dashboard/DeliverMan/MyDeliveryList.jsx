@@ -5,14 +5,15 @@ import React, { useEffect, useState } from 'react';
 
 const MyDeliveryList = () => {
     const axiosInstance = useAxiosSecure();
-    const {role} = useAuth();
+    const {role, authId} = useAuth();
 
 
     const[deliveryList, setDeliveryList] = useState([]);
+
     const token = JSON.parse(localStorage.getItem('ParcelManagementSystemToken'))
 
     useEffect(() => {
-        axiosInstance.get(`/parcels`,
+        axiosInstance.get(`/parcels?deliveryMan=${authId}`,
             {
                 headers:{
                     "Authorization" : `${token.token}`

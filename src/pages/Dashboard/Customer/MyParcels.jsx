@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 
 const MyParcels = () => {
     const axiosInstance = useAxiosSecure();
-    const {role} = useAuth();
+    const {role, user} = useAuth();
 
 
     const[myParcels, setMyParcels] = useState([]);
@@ -14,7 +14,7 @@ const MyParcels = () => {
     const token = JSON.parse(localStorage.getItem('ParcelManagementSystemToken'))
 
     useEffect(() => {
-        axiosInstance.get(`/parcels`,
+        axiosInstance.get(`/parcels?email=${user?.email}`,
             {
                 headers:{
                     "Authorization" : `${token.token}`

@@ -125,7 +125,7 @@ const MapWithPins = ( parcel ) => {
           <Marker position={[parcel.latitude, parcel.longitude]}>
             <Popup>
               <div className="text-sm">
-                <h3 className="font-semibold">{parcel.name}</h3>
+                <h3 className="font-semibold">{parcel.address}</h3>
                 <p>{parcel.description}</p>
                 <p>
                   <strong>Coordinates:</strong> {parcel.latitude}, {parcel.longitude}

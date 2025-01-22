@@ -126,7 +126,7 @@ const ParcelTableData = ({
             </Button>
           </DialogTrigger>
           <MapWithPins
-            name={data.name}
+            address={data.parcelDeliveryAddress}
             latitude={data.deliveryAddressLatitude}
             longitude={data.deliveryAddressLongitude}
           />
