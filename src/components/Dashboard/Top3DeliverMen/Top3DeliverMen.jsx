@@ -14,7 +14,7 @@ const Top3DeliverMen = () => {
 
   useEffect(() => {
     axiosInstance
-      .get("http://localhost:5000/api/statistics/top-deliver-men")
+      .get("/statistics/top-deliver-men")
       .then((res) => {
         setTopDeliverMen(res.data.data);
       });
