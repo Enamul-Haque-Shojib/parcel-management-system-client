@@ -60,7 +60,7 @@ const Profile = () => {
         <h1 className="text-xl font-bold text-gray-800">Phone: <span className="font-normal">{profileData.authPhoneNumber}</span></h1>
       </div>
 
-      {/* Update Profile Button */}
+     
       <div className="flex justify-center mt-8">
         <Dialog>
           <DialogTrigger asChild>
