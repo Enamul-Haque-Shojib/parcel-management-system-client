@@ -31,10 +31,7 @@ const MyParcels = () => {
 
     return (
         <div>
-
             <ParcelTable parcelData={myParcels} role={role}></ParcelTable>
- 
-
         </div>
     );
 };
