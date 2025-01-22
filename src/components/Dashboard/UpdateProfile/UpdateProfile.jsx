@@ -11,7 +11,7 @@ import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 
-
+import { useToast } from "@/hooks/use-toast";
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import useAxiosSecure from "@/hooks/useAxiosSecure";
@@ -19,7 +19,7 @@ import { imageUpload } from "@/utils/utils";
 import useAuth from "@/hooks/useAuth";
 
 const UpdateProfile = ({profileData}) => {
-    console.log(profileData);
+  const { toast } = useToast();
     const {updateUserProfile} = useAuth();
     
     const axiosInstance = useAxiosSecure()
@@ -73,11 +73,11 @@ const UpdateProfile = ({profileData}) => {
               userInfo
             }
           );
-          console.log(response.data)
-        //   toast({ title: "Parcel updated successfully!", status: "success" });
+          // console.log(response.data)
+          toast({ title: "Parcel updated successfully!", status: "success" });
         } catch (error) {
           console.error("Error updating Profile:", error);
-        //   toast({ title: "Failed to update parcel", status: "error" });
+          toast({ title: "Failed to update parcel", status: "error" });
         }
       };
     return (

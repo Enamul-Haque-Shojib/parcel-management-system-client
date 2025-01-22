@@ -31,11 +31,13 @@ import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useToast } from "@/hooks/use-toast";
 
 const BookParcel = () => {
   const axiosInstance = useAxiosSecure();
 const {user, role} = useAuth()
   const [totalPrice, setTotalPrice] = useState(0);
+  const { toast } = useToast();
 
   const handleTotalPrice = (weight) => {
     const numericWeight = parseFloat(weight) || 0; // Convert weight to a number, default to 0 if empty
@@ -88,9 +90,13 @@ const {user, role} = useAuth()
           },
         }
       );
-      console.log(response.data);
+      toast({
+        title: `Successfully booked parcel`,
+      });
+      // console.log(response.data);
     } catch (error) {
       console.error("Error submitting form:", error);
+      toast({ title: "Failed to book parcel", status: "error" });
     }
   };
   return (

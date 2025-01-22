@@ -21,7 +21,7 @@ const ParcelTableData = ({
  
   
   // const role = "Admin"
-  const toast = useToast();
+  const {toast} = useToast();
   const axiosInstance = useAxiosSecure();
   const [approximateDeliveryDate, setApproximateDeliveryDate] = useState(
     data.ApproximateDeliveryDate
@@ -36,7 +36,7 @@ const ParcelTableData = ({
       await axiosInstance.patch(`/auth/parcel-status/${id}`, statusChange);
       setBookingStatus(status);
       toast({
-        title: `Successfully updated to ${status}`,
+        title: `Successfully  ${status} the parcel`,
       });
     } catch (error) {
       toast({
@@ -70,7 +70,7 @@ const ParcelTableData = ({
               {bookingStatus}
             </span>
           </TableCell>
-          <TableCell className="text-right space-x-2">
+          <TableCell className="text-right space-x-2 flex">
             <Link
               to={`update-parcel/${data._id}`}
               className="text-sm bg-blue-600 hover:bg-blue-700 text-white py-1 px-3 rounded-md"
@@ -137,7 +137,7 @@ const ParcelTableData = ({
       <TableCell className="text-center">
         <Button
           onClick={() => handleStatus(data._id, "Canceled")}
-          disabled={bookingStatus !== "Pending"}
+         
           variant="destructive"
           className="text-sm bg-red-600 hover:bg-red-700 text-white py-1 px-3 rounded-md"
         >
@@ -147,9 +147,9 @@ const ParcelTableData = ({
       <TableCell className="text-center">
         <Button
           onClick={() => handleStatus(data._id, "Delivered")}
-          disabled={bookingStatus !== "Pending"}
+          
           variant="success"
-          className="text-sm bg-green-600 hover:bg-green-700 text-white py-1 px-3 rounded-md"
+          className="text-sm bg-green-700 hover:bg-green-800 text-white py-1 px-3 rounded-md"
         >
           Deliver
         </Button>
