@@ -12,7 +12,7 @@ import {
   SidebarGroupContent,
 } from "@/components/ui/sidebar";
 import { Link, useNavigate } from "react-router-dom";
-import { ChartSpline, User, Package, BookDown, Truck, Star, Search, Menu, LogOut } from "lucide-react";
+import { ChartSpline, User, Package, BookDown, Truck, Star, Search, Menu, LogOut, Home } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import useAuth from "@/hooks/useAuth";
@@ -69,7 +69,7 @@ const AppSidebar = ({ sidebarOpen }) => {
           
           {sidebarOpen && <h1 className="text-2xl font-bold">Parcel Warehouse</h1>}
         </div>
-        <Search className="w-5 h-5 hover:opacity-75" />
+        <Link to='/'><Home className="w-5 h-5 hover:opacity-75" /></Link>
       </SidebarHeader>
 
       {/* Content */}

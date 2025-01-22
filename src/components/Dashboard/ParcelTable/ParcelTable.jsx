@@ -70,7 +70,7 @@ const ParcelTable = ({
       <Table>
         <TableCaption>A list of parcels and their statuses.</TableCaption>
         <TableHeader>
-          <TableRow>
+          <TableRow className='bg-purple-400'>
             <TableHead>Parcel Number</TableHead>
             {renderHeaders()}
           </TableRow>

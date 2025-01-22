@@ -81,6 +81,7 @@ const ParcelTableData = ({
               onClick={() => handleStatus(data._id, "Canceled")}
               disabled={bookingStatus !== "Pending"}
               variant="destructive"
+              className="text-sm bg-red-600 hover:bg-red-700 text-white py-1 px-3 rounded-md"
             >
               Cancel
             </Button>
@@ -91,6 +92,7 @@ const ParcelTableData = ({
                 <Button
                   variant="outline"
                   disabled={bookingStatus !== "Delivered"}
+                  className="text-sm bg-green-600 hover:bg-green-700 text-white py-1 px-3 rounded-md"
                 >
                   Review
                 </Button>
@@ -101,7 +103,7 @@ const ParcelTableData = ({
           <TableCell>
             <Dialog>
               <DialogTrigger asChild>
-                <Button>Pay</Button>
+                <Button className="text-sm bg-yellow-600 hover:bg-yellow-700 text-white py-1 px-3 rounded-md">Pay</Button>
               </DialogTrigger>
               <SuccessPayment />
             </Dialog>
@@ -121,7 +123,7 @@ const ParcelTableData = ({
       <TableCell className="text-center">
         <Dialog>
           <DialogTrigger asChild>
-            <Button variant="outline" className="w-full">
+            <Button variant="outline" className="w-full text-sm bg-blue-600 hover:bg-blue-700 text-white py-1 px-3 rounded-md">
               View Location
             </Button>
           </DialogTrigger>
@@ -137,6 +139,7 @@ const ParcelTableData = ({
           onClick={() => handleStatus(data._id, "Canceled")}
           disabled={bookingStatus !== "Pending"}
           variant="destructive"
+          className="text-sm bg-red-600 hover:bg-red-700 text-white py-1 px-3 rounded-md"
         >
           Cancel
         </Button>
@@ -146,6 +149,7 @@ const ParcelTableData = ({
           onClick={() => handleStatus(data._id, "Delivered")}
           disabled={bookingStatus !== "Pending"}
           variant="success"
+          className="text-sm bg-green-600 hover:bg-green-700 text-white py-1 px-3 rounded-md"
         >
           Deliver
         </Button>
@@ -167,7 +171,7 @@ const ParcelTableData = ({
       <TableCell className="text-center">
         <Dialog>
           <DialogTrigger asChild>
-            <Button variant="outline" className="w-full">
+            <Button variant="outline" className="w-full text-sm bg-blue-600 hover:bg-blue-700 text-white py-1 px-3 rounded-md">
               Manage
             </Button>
           </DialogTrigger>

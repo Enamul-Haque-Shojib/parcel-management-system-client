@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { TableCell, TableRow } from "@/components/ui/table";
 import useAxiosSecure from "@/hooks/useAxiosSecure";
+import { useToast } from "@/hooks/use-toast";
 
 
 
@@ -10,7 +11,7 @@ const TableData = (props) => {
   const { data, tableRole } = props;
   const axiosInstance = useAxiosSecure();
   const [statisticsAuth, setStatisticsAuth] = useState({});
-
+  const { toast } = useToast()
   useEffect(() => {
     axiosInstance
       .get(`/statistics/statistics-auth/${data._id}`)
@@ -30,7 +31,9 @@ const TableData = (props) => {
         
         roleChange);
 
-      
+        toast({
+          title: "Role has been updated",
+        })
     } catch (error) {
       console.error("Error updating role:", error);
      
@@ -52,6 +55,7 @@ const TableData = (props) => {
                   size="sm"
                   variant="outline"
                   onClick={() => handleRole(data._id, "DeliverMan")}
+                  className="text-sm bg-sky-600 hover:bg-sky-700 text-white py-1 px-3 rounded-md"
                 >
                   Make Deliver Man
                 </Button>
@@ -65,6 +69,7 @@ const TableData = (props) => {
                   size="sm"
                   variant="outline"
                   onClick={() => handleRole(data._id, "Admin")}
+                  className="text-sm bg-sky-600 hover:bg-sky-700 text-white py-1 px-3 rounded-md"
                 >
                   Make Admin
                 </Button>

@@ -21,7 +21,7 @@ const UsersTable = (props) => {
           A list of {tableRole === "User" ? "Users" : "Delivery Men"}.
         </TableCaption>
         <TableHeader>
-          <TableRow>
+          <TableRow className="bg-purple-400">
             <TableHead>User ID</TableHead>
             {tableRole === "User" && (
               <>
@@ -50,9 +50,9 @@ const UsersTable = (props) => {
         </TableBody>
         {tableRole === "User" && (
           <TableFooter>
-            <TableRow>
-              <TableCell colSpan={3}>Total Users</TableCell>
-              <TableCell className="text-right">
+            <TableRow className='bg-green-400'>
+              <TableCell >Total Users</TableCell>
+              <TableCell className="">
                 {userData.length || 0}
               </TableCell>
             </TableRow>
@@ -60,9 +60,9 @@ const UsersTable = (props) => {
         )}
         {tableRole === "DeliverMan" && (
           <TableFooter>
-            <TableRow>
-              <TableCell colSpan={3}>Total Deliver Men</TableCell>
-              <TableCell className="text-right">
+            <TableRow className='bg-green-400'>
+              <TableCell>Total Deliver Men</TableCell>
+              <TableCell className="">
                 {userData.length || 0}
               </TableCell>
             </TableRow>
