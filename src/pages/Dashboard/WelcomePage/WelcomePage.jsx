@@ -4,7 +4,7 @@ const WelcomePage = () => {
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-500 to-indigo-600 text-white">
       <div className="text-center p-6 max-w-3xl bg-white rounded-lg shadow-lg">
-        {/* Welcome Text */}
+       
         <h1 className="text-4xl font-bold text-gray-800 mb-4">
           Welcome to the Dashboard
         </h1>
@@ -13,7 +13,7 @@ const WelcomePage = () => {
           from one place. Let's get started!
         </p>
 
-        {/* Action Buttons */}
+      
         <div className="flex justify-center gap-4">
           <button className="px-6 py-2 bg-blue-600 text-white rounded-md shadow-md hover:bg-blue-700 transition">
             View Reports
