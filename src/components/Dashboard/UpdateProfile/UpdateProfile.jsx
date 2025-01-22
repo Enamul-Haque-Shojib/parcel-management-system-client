@@ -40,15 +40,21 @@ const UpdateProfile = ({profileData}) => {
         mode: 'onChange', // Optional: Customize validation behavior
     });
     
+    const token = JSON.parse(localStorage.getItem('ParcelManagementSystemToken'))
+
       const onSubmit = async (data) => {
-         const imageFile = data.authImgUrl[0]; 
-                  const authName = data.authName;
-             
+        let authImgUrl;
+        if(data.authImgUrl==null){
+          authImgUrl = profileData.authImgUrl
+        }else{
+          const imageFile = data.authImgUrl[0];
+          authImgUrl = await imageUpload(imageFile);
+        }
           
-                  const authImgUrl = await imageUpload(imageFile);
+                  const authName = data.authName;
                   const authPhoneNumber = data.authPhoneNumber;
 
-                  const token = JSON.parse(localStorage.getItem('ParcelManagementSystemToken'))
+                 
         try {
             await updateUserProfile(authName, authImgUrl)
 
@@ -62,16 +68,13 @@ const UpdateProfile = ({profileData}) => {
              
 
           const response = await axiosInstance.patch(
-            `/auth/update-auth/${profileData._id}`,
+            `/auth/update-auth/${profileData._id}`,userInfo,
             {
               headers:{
                   "Authorization" : `${token.token}`
               }
               
-          },
-            {
-              userInfo
-            }
+          }  
           );
           // console.log(response.data)
           toast({ title: "Parcel updated successfully!", status: "success" });
