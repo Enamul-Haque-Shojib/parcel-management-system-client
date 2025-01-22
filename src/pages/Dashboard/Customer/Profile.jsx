@@ -51,7 +51,7 @@ const Profile = () => {
         </div>
       </div>
 
-      {/* Profile Details */}
+    
       <div className="space-y-4">
         <h1 className="text-xl font-bold text-gray-800">User ID: <span className="font-normal">{profileData.authId}</span></h1>
         <h1 className="text-xl font-bold text-gray-800">Name: <span className="font-normal">{profileData.authName}</span></h1>
