@@ -23,7 +23,6 @@ const ManageDeliveryMen = ({parcelNumber, parcelId}) => {
 
     const axiosInstance = useAxiosSecure();
 
-
     const[deliverMen, setDeliverMen] = useState([]);
     // console.log(deliverMen)
 
@@ -36,9 +35,10 @@ const ManageDeliveryMen = ({parcelNumber, parcelId}) => {
 
 
      const form = useForm();
+     
 
       const onSubmit = async (data) => {
-      
+        
          try {
           console.log(data, parcelNumber)
           const manageDate = {
@@ -48,7 +48,7 @@ const ManageDeliveryMen = ({parcelNumber, parcelId}) => {
           }
           
          const responsive = await axiosInstance.patch(`/auth//manage-parcel/${parcelId}`,manageDate)
-              console.log(responsive)
+              // console.log(responsive)
              
            
           toast({

@@ -55,6 +55,7 @@ const UpdateParcel = () => {
   });
 
   const onSubmit = async (data) => {
+    const token = JSON.parse(localStorage.getItem('ParcelManagementSystemToken'))
     try {
       const response = await axiosInstance.patch(
         `/parcels/update-parcel/${loadData?.data?._id}`,
@@ -63,6 +64,15 @@ const UpdateParcel = () => {
           parcelWeight: parseInt(data.parcelWeight, 10),
           price: parseInt(data.parcelWeight, 10) * 15,
         }
+        ,
+        {
+          headers:{
+              "Authorization" : `${token.token}`
+          }
+          
+      }
+        
+        
       );
       toast({ title: "Parcel updated successfully!", status: "success" });
     } catch (error) {

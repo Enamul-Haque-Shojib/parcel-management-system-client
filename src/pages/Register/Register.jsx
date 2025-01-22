@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate, Navigate, useLocation } from "react-router-dom";
+import { useNavigate, Navigate, useLocation, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import useAuth from "@/hooks/useAuth";
 import { imageUpload, saveAuth, setTokenIntoLocalStorage } from "@/utils/utils";
+import { Loader } from "lucide-react";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -15,7 +16,7 @@ const Register = () => {
   const { createUser, updateUserProfile, signInWithGoogle, user, loading } = useAuth();
 
   const location = useLocation();
-  const from = location?.state?.from?.pathname || "/";
+  
 
   const handleRoleSignUp = (roleName) => {
     setRoleSignUp(roleName);
@@ -48,7 +49,7 @@ const Register = () => {
       const tokenData = await saveAuth(userInfo);
       await setTokenIntoLocalStorage(tokenData?.tokenData);
 
-      navigate(from, { replace: true });
+      navigate('/');
     } catch (error) {
       console.log("Error during registration:", error);
     }
@@ -63,7 +64,7 @@ const Register = () => {
       const tokenData = await saveAuth(userInfo);
       await setTokenIntoLocalStorage(tokenData?.tokenData);
 
-      navigate(from, { replace: true });
+      navigate('/');
     } catch (err) {
       console.log("Google Sign-Up Error:", err);
     }
@@ -84,16 +85,18 @@ const Register = () => {
         or{" "}
         <span
           className="cursor-pointer underline text-green-600 font-bold"
-          onClick={() => handleRoleSignUp("Deliver Man")}
+          onClick={() => handleRoleSignUp("DeliverMan")}
         >
           Deliver Man
         </span>
       </p>
 
       {loading ? (
-        <p className="text-center text-lg text-gray-500">Loading...</p>
+        <div className="flex justify-center items-center h-96">
+        <Loader className="animate-spin text-gray-400 w-10 h-10" />
+      </div>
       ) : user ? (
-        <Navigate to={from} replace={true} />
+        <Navigate to='/' />
       ) : (
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -193,6 +196,15 @@ const Register = () => {
           )}
         </Form>
       )}
+       <p className="text-center mt-6 text-gray-600">
+              Already have an account?{" "}
+              <Link
+                to="/login"
+                className="text-green-600 font-semibold hover:underline"
+              >
+                Login
+              </Link>
+            </p>
     </div>
   );
 };

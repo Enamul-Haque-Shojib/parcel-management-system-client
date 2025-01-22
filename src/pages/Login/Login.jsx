@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -14,12 +14,13 @@ import {
 import { Input } from "@/components/ui/input";
 import useAuth from "@/hooks/useAuth";
 import { saveAuth, setTokenIntoLocalStorage } from "@/utils/utils";
+import { Loader } from "lucide-react";
 
 const Login = () => {
   const { signInWithGoogle, loading, user, signIn } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location?.state?.from?.pathname || "/";
+  
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [loginError, setLoginError] = useState("");
 
@@ -38,7 +39,7 @@ const Login = () => {
       const res = await signIn(email, password);
       const tokenData = await saveAuth(data);
       await setTokenIntoLocalStorage(tokenData?.tokenData);
-      navigate(from, { replace: true });
+      navigate('/');
     } catch (error) {
       setLoginError("Invalid email or password. Please try again.");
       console.error(error);
@@ -59,7 +60,7 @@ const Login = () => {
 
       const tokenData = await saveAuth(userInfo);
       await setTokenIntoLocalStorage(tokenData?.tokenData);
-      navigate(from, { replace: true });
+      navigate('/');
     } catch (error) {
       console.error(error);
     }
@@ -73,9 +74,11 @@ const Login = () => {
       </p>
 
       {loading ? (
-        <p className="text-center text-lg text-gray-500">Loading...</p>
+        <div className="flex justify-center items-center h-96">
+        <Loader className="animate-spin text-gray-400 w-10 h-10" />
+      </div>
       ) : user ? (
-        <Navigate to={from} replace={true} />
+        <Navigate to='/' />
       ) : (
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -148,7 +151,17 @@ const Login = () => {
             </Button>
           </div>
         </Form>
+        
       )}
+      <p className="text-center mt-6 text-gray-600">
+            Don’t have an account?{" "}
+            <Link
+              to="/register"
+              className="text-blue-600 font-semibold hover:underline"
+            >
+              Register
+            </Link>
+          </p>
     </div>
   );
 };

@@ -2,16 +2,31 @@ import React, { useEffect, useState } from "react";
 import ReviewCard from "@/components/Dashboard/ReviewCard/ReviewCard";
 import useAxiosSecure from "@/hooks/useAxiosSecure";
 import { Loader } from "lucide-react";
+import useAuth from "@/hooks/useAuth";
 
 const MyReviews = () => {
   const axiosInstance = useAxiosSecure();
+  const {user,role, authId} = useAuth()
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
+ 
 
+
+  const token = JSON.parse(localStorage.getItem('ParcelManagementSystemToken'))
   useEffect(() => {
     axiosInstance
-      .get(`/auth/get-reviews/DM-0004`)
+      .get(`/auth/get-reviews/${authId}`,
+        {
+          headers:{
+              "Authorization" : `${token.token}`
+          }
+          
+      }
+      )
+        
+      
       .then((res) => {
+      
         setReviews(res.data.data);
         setLoading(false);
       })

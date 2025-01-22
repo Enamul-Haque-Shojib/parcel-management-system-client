@@ -48,7 +48,7 @@ const UpdateProfile = ({profileData}) => {
                   const authImgUrl = await imageUpload(imageFile);
                   const authPhoneNumber = data.authPhoneNumber;
 
-
+                  const token = JSON.parse(localStorage.getItem('ParcelManagementSystemToken'))
         try {
             await updateUserProfile(authName, authImgUrl)
 
@@ -59,10 +59,16 @@ const UpdateProfile = ({profileData}) => {
                 authPhoneNumber,
         
               }
-              console.log('-------->>>>>',userInfo);
+             
 
           const response = await axiosInstance.patch(
             `/auth/update-auth/${profileData._id}`,
+            {
+              headers:{
+                  "Authorization" : `${token.token}`
+              }
+              
+          },
             {
               userInfo
             }

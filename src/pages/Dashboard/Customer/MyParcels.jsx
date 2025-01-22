@@ -1,9 +1,11 @@
 import ParcelTable from '@/components/Dashboard/ParcelTable/ParcelTable';
+import useAuth from '@/hooks/useAuth';
 import useAxiosSecure from '@/hooks/useAxiosSecure';
 import React, { useEffect, useState } from 'react';
 
 const MyParcels = () => {
     const axiosInstance = useAxiosSecure();
+    const {role} = useAuth();
 
 
     const[myParcels, setMyParcels] = useState([]);
@@ -30,7 +32,7 @@ const MyParcels = () => {
     return (
         <div>
 
-            <ParcelTable parcelData={myParcels}></ParcelTable>
+            <ParcelTable parcelData={myParcels} role={role}></ParcelTable>
  
 
         </div>

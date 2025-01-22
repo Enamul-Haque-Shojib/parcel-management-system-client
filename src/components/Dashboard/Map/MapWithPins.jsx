@@ -66,7 +66,8 @@ const Routing = ({ start, end }) => {
   return null;
 };
 
-const MapWithPins = ({ parcel }) => {
+const MapWithPins = ( parcel ) => {
+  console.log(parcel)
   const [loading, setLoading] = useState(true);
 
   const defaultCenter = [23.8429, 90.4004];

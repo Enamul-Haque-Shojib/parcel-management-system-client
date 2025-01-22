@@ -24,6 +24,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import useAuth from "@/hooks/useAuth";
 import useAxiosSecure from "@/hooks/useAxiosSecure";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
@@ -33,7 +34,7 @@ import { useForm } from "react-hook-form";
 
 const BookParcel = () => {
   const axiosInstance = useAxiosSecure();
-
+const {user, role} = useAuth()
   const [totalPrice, setTotalPrice] = useState(0);
 
   const handleTotalPrice = (weight) => {
@@ -43,8 +44,8 @@ const BookParcel = () => {
 
   const form = useForm({
     defaultValues: {
-      name: "",
-      email: "",
+      name: user.displayName || "",
+      email: user.email || "",
       senderPhoneNumber: "",
       parcelType: "",
       parcelWeight: "",
@@ -57,34 +58,41 @@ const BookParcel = () => {
     },
   });
 
-  const onSubmit = async (data) => {
-    const formData = new FormData();
+  const token = JSON.parse(localStorage.getItem('ParcelManagementSystemToken'))
 
+  const onSubmit = async (data) => {
+    console.log(data);
+    const formData = new FormData();
+  
     // Append all fields to FormData
     Object.entries(data).forEach(([key, value]) => {
       formData.append(key, value);
     });
-
+  
     const initialData = Object.fromEntries(formData.entries());
     const weight = parseInt(initialData.parcelWeight);
     const price = 15 * weight;
-
+  
     initialData.parcelWeight = weight;
     initialData.price = price;
-
+  
     console.log(initialData);
-
+  
     try {
       const response = await axiosInstance.post(
         `/parcels/create-parcel`,
-        initialData
+        initialData,
+        {
+          headers: {
+            Authorization: `${token.token}`, // Correctly set the headers
+          },
+        }
       );
       console.log(response.data);
     } catch (error) {
       console.error("Error submitting form:", error);
     }
   };
-
   return (
     <div className="max-w-4xl mx-auto p-6 bg-gray-50 shadow-lg rounded-lg">
       <h1 className="text-3xl font-bold text-center text-gray-800 mb-8">
@@ -108,7 +116,7 @@ const BookParcel = () => {
               <FormItem>
                 <FormLabel>Name</FormLabel>
                 <FormControl>
-                  <Input placeholder="Enter your name" {...field} />
+                  <Input placeholder="Enter your name" readOnly {...field} />
                 </FormControl>
                 <FormDescription>Full name of the sender.</FormDescription>
                 <FormMessage />
@@ -122,7 +130,7 @@ const BookParcel = () => {
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input placeholder="Enter your email" {...field} />
+                  <Input placeholder="Enter your email" readOnly {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

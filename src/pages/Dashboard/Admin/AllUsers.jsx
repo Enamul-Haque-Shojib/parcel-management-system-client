@@ -9,7 +9,7 @@ const AllUsers = () => {
 
     const[customers, setCustomers] = useState([]);
     
-
+ 
     useEffect(() => {
         axiosInstance.get(`/auth?role=User`)
         .then(res => {

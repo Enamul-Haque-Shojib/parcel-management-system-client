@@ -9,9 +9,16 @@ const AllDeliveryMen = () => {
 
     const[deliveryMen, setDeliveryMen] = useState([]);
     
-
+    const token = JSON.parse(localStorage.getItem('ParcelManagementSystemToken'))
     useEffect(() => {
-        axiosInstance.get(`/auth?role=DeliverMan`)
+        axiosInstance.get(`/auth?role=DeliverMan`,
+            {
+                headers:{
+                    "Authorization" : `${token.token}`
+                }
+                
+            }
+        )
         .then(res => {
             setDeliveryMen(res.data.data);
          })

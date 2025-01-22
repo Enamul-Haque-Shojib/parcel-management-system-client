@@ -1,82 +1,89 @@
-import { Button } from '@/components/ui/button';
-import { TableCell, TableRow } from '@/components/ui/table';
-import useAxiosSecure from '@/hooks/useAxiosSecure';
-import React, { useEffect, useState } from 'react';
-import { useToast } from "@/hooks/use-toast"
+import React, { useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
+import { TableCell, TableRow } from "@/components/ui/table";
+import useAxiosSecure from "@/hooks/useAxiosSecure";
+
+
 
 const TableData = (props) => {
-        const { toast } = useToast()
-        const {data, tableRole} = props;
-        const axiosInstance = useAxiosSecure()
-        const [statisticsAuth, setStatisticsAuth] = useState({});
-   
-   
+
+  const { data, tableRole } = props;
+  const axiosInstance = useAxiosSecure();
+  const [statisticsAuth, setStatisticsAuth] = useState({});
+
+  useEffect(() => {
+    axiosInstance
+      .get(`/statistics/statistics-auth/${data._id}`)
+      .then((res) => {
+        setStatisticsAuth(res.data.data);
+      })
+      .catch((error) => console.error("Error fetching statistics:", error));
+  }, [data._id, axiosInstance]);
+
+  const handleRole = async (id, authRole) => {
+
+    try {
+      const roleChange = {
+        role: authRole,
+      };
+      await axiosInstance.patch(`/auth/auth-role/${id}`,
         
-     useEffect(() => {
-            axiosInstance.get(`/statistics/statistics-auth/${data._id}`)
-            .then(res => {
-                setStatisticsAuth(res.data.data);
-             })
-        },[]);
+        roleChange);
 
+      
+    } catch (error) {
+      console.error("Error updating role:", error);
+     
+    }
+  };
 
-        const handleRole = async(id,authRole)=>{
-                
-                try {
-                        const roleChange = {
-                          role: authRole,
-                        };
-                        const response = await axiosInstance.patch(`/auth/auth-role/${id}`, roleChange);
-                        console.log(response.data.data);
+  return (
+    <TableRow className="hover:bg-gray-100 transition duration-200">
+      <TableCell className="font-medium">{data.authId}</TableCell>
+      {tableRole === "User" && (
+        <>
+          <TableCell>{data.authName}</TableCell>
+          <TableCell>{data.authPhoneNumber}</TableCell>
+          <TableCell>{statisticsAuth.parcelCount || 0}</TableCell>
+          <TableCell>${statisticsAuth.parcelCost?.toFixed(2) || "0.00"}</TableCell>
+          <TableCell>
+            
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={() => handleRole(data._id, "DeliverMan")}
+                >
+                  Make Deliver Man
+                </Button>
              
-                        toast({
-                          title: `Successfully create ${authRole}`,
-                        });
-                      } catch (error) {
-                        console.error("Error updating role:", error);
-                        toast({
-                          title: "Failed to update role",
-                          description: error.message,
-                          variant: "destructive",
-                        });
-                      }
-        }
-    
-        return (
-                <TableRow>
-                        <TableCell className="font-medium">{data.authId}</TableCell>
-                {
-                        tableRole === 'User' && (
-                                <>
-                                <TableCell className="font-medium">{data.authName}</TableCell>
-                                <TableCell className="font-medium">{data.authPhoneNumber}</TableCell>
-                                <TableCell className="font-medium">{statisticsAuth.parcelCount}</TableCell>
-                                <TableCell className="font-medium">{statisticsAuth.parcelCost}</TableCell>
-                                <TableCell className="font-medium">
-                                        <Button onClick={()=>{handleRole(data._id,'DeliverMan')}}>Make Delivery Man</Button>
-                                </TableCell>
-                                <TableCell className="font-medium">
-                                        <Button onClick={()=>{handleRole(data._id,'Admin')}}>Make Admin</Button>
-                                </TableCell>
-                                </>
-                        )
-                }
-                {
-                        tableRole === 'DeliverMan' && (
-                                <>
-                                <TableCell className="font-medium">{data.authName}</TableCell>
-                                <TableCell className="font-medium">{data.authPhoneNumber}</TableCell>
-                                <TableCell className="font-medium">{statisticsAuth.deliveredCount}</TableCell>
-                                <TableCell className="font-medium">{statisticsAuth.avgReview}</TableCell>
-                               
-                                </>
-                        )
-                }
-                
-                
-                </TableRow>
-          
-        );
+            
+            
+          </TableCell>
+          <TableCell>
+            
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={() => handleRole(data._id, "Admin")}
+                >
+                  Make Admin
+                </Button>
+              
+             
+            
+          </TableCell>
+        </>
+      )}
+      {tableRole === "DeliverMan" && (
+        <>
+          <TableCell>{data.authName}</TableCell>
+          <TableCell>{data.authPhoneNumber}</TableCell>
+          <TableCell>{statisticsAuth.deliveredCount || 0}</TableCell>
+          <TableCell>{statisticsAuth.avgReview?.toFixed(1) || "0.0"}</TableCell>
+        </>
+      )}
+    </TableRow>
+  );
 };
 
 export default TableData;

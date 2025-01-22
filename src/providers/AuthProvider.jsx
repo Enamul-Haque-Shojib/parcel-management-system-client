@@ -19,6 +19,7 @@ const googleProvider = new GoogleAuthProvider()
 const AuthProvider = ({children}) => {
     const [user, setUser] = useState(null);
     const [role, setRole] = useState(null);
+    const [authId, setAuthId] = useState(null);
     const [loading, setLoading] = useState(true);
     console.log('Role->',role)
     
@@ -61,7 +62,9 @@ const AuthProvider = ({children}) => {
           const token = JSON.parse(localStorage.getItem('ParcelManagementSystemToken'))
 
           if(token){
+            
             setRole(token.role)
+            setAuthId(token.authId)
           }else{
         
           const response = await axios.post(
@@ -74,7 +77,10 @@ const AuthProvider = ({children}) => {
             { withCredentials: true }
           )
 
+          
+
           setRole(response.data.data.tokenData.role)
+          setAuthId(response.data.data.tokenData.authId)
     
           await setTokenIntoLocalStorage(response.data.data.tokenData)
           
@@ -96,6 +102,7 @@ const AuthProvider = ({children}) => {
   
     const authInfo = {
       role,
+      authId,
       user,
       setUser,
       loading,

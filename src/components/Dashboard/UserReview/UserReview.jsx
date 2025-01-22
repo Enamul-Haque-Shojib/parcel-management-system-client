@@ -13,7 +13,8 @@ const UserReview = ({deliverManId}) => {
     const { toast } = useToast()
      const form = useForm();
      const onSubmit = async (data) => {
-      
+      const token = JSON.parse(localStorage.getItem('ParcelManagementSystemToken'))
+        
         try {
       
          const reviewDate = {
@@ -24,7 +25,15 @@ const UserReview = ({deliverManId}) => {
             rating:3
          }
          
-        const responsive = await axiosInstance.patch(`auth/review-user/${deliverManId}`,reviewDate)
+        const responsive = await axiosInstance.patch(`auth/review-user/${deliverManId}`,
+          reviewDate,
+          {
+            headers:{
+                "Authorization" : `${token.token}`
+            }
+            
+        }
+          )
              console.log(responsive)
             
           

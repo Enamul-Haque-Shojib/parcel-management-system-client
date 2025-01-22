@@ -11,15 +11,30 @@ import {
   SidebarMenuItem,
   SidebarGroupContent,
 } from "@/components/ui/sidebar";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ChartSpline, User, Package, BookDown, Truck, Star, Search, Menu, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import useAuth from "@/hooks/useAuth";
 
 const AppSidebar = ({ sidebarOpen }) => {
-  const [isCollapsed, setIsCollapsed] = useState(false);
 
-  const role = "User"; // Replace with dynamic role fetching logic
+  const {role, user, logOut} = useAuth();
+  
+
+  const handleLogOut = () => {
+    logOut()
+      .then(() => {
+        localStorage.removeItem('ParcelManagementSystemToken');
+        // toast.success("Logged out successfully");
+      })
+      .catch(() => {
+        // toast.error("Failed to log out. Please try again.");
+      });
+  };
+  
+
+
 
   const items = {
     Admin: [
@@ -99,20 +114,23 @@ const AppSidebar = ({ sidebarOpen }) => {
             {/* <User className="w-5 h-5 text-white" /> */}
            
             <Avatar className={!sidebarOpen ? 'w-5 h-5' : ''}>
-                <AvatarImage src="https://github.com/shadcn.png" className="w-full h-full" alt="@shadcn" />
+                <AvatarImage src={user.photoURL} className="w-full h-full" alt="@shadcn" />
                   <AvatarFallback>CN</AvatarFallback>
             </Avatar>
             
           </div>
           {sidebarOpen && (
             <div className="text-sm">
-              <p className="font-bold">John Doe</p>
-              <p className="text-gray-400 text-xs">johndoe@example.com</p>
+              <p className="font-bold">{user.displayName}</p>
+              <p className="text-gray-400 text-xs">{user.email}</p>
             </div>
           )}
         </div>
         {sidebarOpen && (
-          <Button className="w-full mt-4 bg-red-600 hover:bg-red-500">Logout</Button>
+          <Button 
+          className="w-full mt-4 bg-red-600 hover:bg-red-500"
+          onClick={handleLogOut}
+          >Logout</Button>
         )}
         {!sidebarOpen && (
           <LogOut className="w-5 h-5 cursor-pointer"></LogOut>
