@@ -21,7 +21,7 @@ const AuthProvider = ({children}) => {
     const [role, setRole] = useState(null);
     const [authId, setAuthId] = useState(null);
     const [loading, setLoading] = useState(true);
-    console.log('Role->',role)
+    // console.log('Role->',role)
     
   
     const createUser = (email, password) => {
@@ -51,10 +51,10 @@ const AuthProvider = ({children}) => {
       })
     }
   
-    // onAuthStateChange
+   
     useEffect(() => {
       const unsubscribe = onAuthStateChanged(auth, async currentUser => {
-        console.log('CurrentUser-->', currentUser?.email)
+        // console.log('CurrentUser-->', currentUser?.email)
   
         if (currentUser?.email) {
           setUser(currentUser)
