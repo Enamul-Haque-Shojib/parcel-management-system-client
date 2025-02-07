@@ -8,6 +8,9 @@
 
 <https://parcel-management-system-ae1b6.web.app/>
 
+## Project Overview
+User can post parcel with parcel weight, price , for location longitude and latitude, booking status. Admin manage the parcel by set at delivery man. Delivery man can handle this to User by using location
+
 ## Features:
 - This project has 3 type authentication, admin, Delivery man, User and manage by dashboard
 - User can post parcel with parcel weight, price , for location longitude and latitude, booking status.
@@ -16,7 +19,7 @@
 - Admin manage the parcel by set at delivery man
 - Delivery man can handle this to User by using location 
 - To know the location delivery man can see the location his dashboard
-- 
+
 
 ### Frontend: 
 - React js
