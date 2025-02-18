@@ -15,8 +15,10 @@ import { Input } from "@/components/ui/input";
 import useAuth from "@/hooks/useAuth";
 import { saveAuth, setTokenIntoLocalStorage } from "@/utils/utils";
 import { Loader } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 
 const Login = () => {
+  const { toast } = useToast();
   const { signInWithGoogle, loading, user, signIn } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
@@ -39,6 +41,9 @@ const Login = () => {
       const res = await signIn(email, password);
       const tokenData = await saveAuth(data);
       await setTokenIntoLocalStorage(tokenData?.tokenData);
+      toast({
+        description: "Logged in successfully",
+      })
       navigate('/');
     } catch (error) {
       setLoginError("Invalid email or password. Please try again.");

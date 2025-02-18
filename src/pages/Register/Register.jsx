@@ -7,8 +7,10 @@ import { Input } from "@/components/ui/input";
 import useAuth from "@/hooks/useAuth";
 import { imageUpload, saveAuth, setTokenIntoLocalStorage } from "@/utils/utils";
 import { Loader } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 
 const Register = () => {
+  const { toast } = useToast();
   const navigate = useNavigate();
   const [roleSignUp, setRoleSignUp] = useState("User");
   const [imagePreview, setImagePreview] = useState(null);
@@ -34,6 +36,7 @@ const Register = () => {
 
   const onSubmit = async (data) => {
     const imageFile = data.authImgUrl[0];
+    
     const authName = data.authName;
     const email = data.email;
     const password = data.password;
@@ -48,7 +51,9 @@ const Register = () => {
       const userInfo = { authName, email, authImgUrl, authPhoneNumber, role };
       const tokenData = await saveAuth(userInfo);
       await setTokenIntoLocalStorage(tokenData?.tokenData);
-
+      toast({
+        description: "Registered successfully",
+      })
       navigate('/');
     } catch (error) {
       console.log("Error during registration:", error);
