@@ -26,7 +26,7 @@ const Feedback = () => {
     return (
         
         <div className="my-[100px] lg:w-[90%] mx-auto">
-        <h1 className="text-center text-4xl font-bold mb-10 text-gray-800">Feedback</h1>
+        <h1 className="text-4xl font-extrabold text-center mb-12 text-gray-800">Feedback</h1>
         <Swiper
           modules={[Virtual, Navigation, Pagination]}
           spaceBetween={30}
