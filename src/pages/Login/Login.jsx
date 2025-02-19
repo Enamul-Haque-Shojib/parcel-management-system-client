@@ -19,7 +19,7 @@ import { useToast } from "@/hooks/use-toast";
 
 const Login = () => {
   const { toast } = useToast();
-  const { signInWithGoogle, loading, user, signIn } = useAuth();
+  const { signInWithGoogle, loading,setLoading, user, signIn } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   
@@ -46,6 +46,10 @@ const Login = () => {
       })
       navigate('/');
     } catch (error) {
+      toast({
+        description: "Invalid email or password. Please try again.",
+      })
+      setLoading(false)
       setLoginError("Invalid email or password. Please try again.");
       console.error(error);
     }
