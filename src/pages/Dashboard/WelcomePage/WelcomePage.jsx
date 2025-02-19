@@ -12,8 +12,8 @@ const WelcomePage = () => {
   
       const[dashboardData, setDashboardData] = useState({});
       
-      const{onTheWay, delivered, pending} = dashboardData;
-      console.log(onTheWay);
+      // const{onTheWay, delivered, pending} = dashboardData;
+      console.log(dashboardData?.userData);
       useEffect(() => {
       
           axiosInstance.post(
@@ -33,7 +33,7 @@ const WelcomePage = () => {
     const pieChartOptions = {
       labels: ["Delivered", "Pending", "On the Way"],
     };
-    const pieChartSeries = [delivered, pending, onTheWay];
+    const pieChartSeries = [dashboardData?.delivered, dashboardData?.pending, dashboardData?.onTheWay];
   
     const users = [
       { name: "John Doe", image: "https://via.placeholder.com/40" },
@@ -70,48 +70,53 @@ const WelcomePage = () => {
          {/* Delivery Stats */}
          <Card className="col-span-1 md:col-span-2 lg:col-span-3 flex justify-around p-4">
           <div className="text-center">
-            <h4 className="text-xl font-bold">{delivered}</h4>
+            <h4 className="text-xl font-bold">{dashboardData?.delivered}</h4>
             <p className="text-gray-500">Delivered</p>
           </div>
           <div className="text-center">
-            <h4 className="text-xl font-bold">{pending}</h4>
+            <h4 className="text-xl font-bold">{dashboardData?.pending}</h4>
             <p className="text-gray-500">Pending</p>
           </div>
           <div className="text-center">
-            <h4 className="text-xl font-bold">{onTheWay}</h4>
+            <h4 className="text-xl font-bold">{dashboardData?.onTheWay}</h4>
             <p className="text-gray-500">On the Way</p>
           </div>
         </Card>
   
-        {/* User List */}
-        <Card className="col-span-1">
+        {
+          role == "Admin" && (
+            <Card className="col-span-1">
           <CardContent>
             <h3 className="font-semibold mb-2">Users</h3>
-            {users.map((user, index) => (
+            {dashboardData?.userData?.map((user, index) => (
               <div key={index} className="flex items-center gap-2 mb-2">
                 <Avatar className="w-10 h-10">
-                  <img src={user.image} alt={user.name} />
+                  <img src={user.authImgUrl} alt='user' />
                 </Avatar>
-                <p>{user.name}</p>
+                <p>{user.authName}</p>
               </div>
             ))}
           </CardContent>
         </Card>
+          )
+        }
   
-        {/* Delivery Men List */}
-        <Card className="col-span-1">
+        {role === 'Admin' && (
+          <Card className="col-span-1">
           <CardContent>
             <h3 className="font-semibold mb-2">Delivery Men</h3>
-            {deliveryMen.map((man, index) => (
+            {dashboardData?.deliverMenData?.map((man, index) => (
               <div key={index} className="flex items-center gap-2 mb-2">
                 <Avatar className="w-10 h-10">
-                  <img src={man.image} alt={man.name} />
+                  <img src={man.authImgUrl} alt='deliverman' />
                 </Avatar>
-                <p>{man.name}</p>
+                <p>{man.authName}</p>
               </div>
             ))}
           </CardContent>
         </Card>
+        )}
+        
   
        
       </div>
