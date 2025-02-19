@@ -30,7 +30,7 @@ const MyDeliveryList = () => {
 
     return (
         <div>
-
+<h1 className='text-center text-2xl'>Deliver List</h1>
             <ParcelTable parcelData={deliveryList} role={role}></ParcelTable>
  
 
