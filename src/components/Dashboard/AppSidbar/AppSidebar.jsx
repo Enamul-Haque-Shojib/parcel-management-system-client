@@ -12,7 +12,7 @@ import {
   SidebarGroupContent,
 } from "@/components/ui/sidebar";
 import { Link, useNavigate } from "react-router-dom";
-import { ChartSpline, User, Package, BookDown, Truck, Star, Search, Menu, LogOut, Home } from "lucide-react";
+import { ChartSpline, User, Package, BookDown, Truck, Star, Search, Menu, LogOut, Home, Gauge } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import useAuth from "@/hooks/useAuth";
@@ -38,16 +38,19 @@ const AppSidebar = ({ sidebarOpen }) => {
 
   const items = {
     Admin: [
+      { title: "Dashboard", url: "", icon: Gauge },
       { title: "Statistics", url: "statistics", icon: ChartSpline },
       { title: "All Users", url: "all-users", icon: User },
       { title: "All Delivery Men", url: "all-delivery-men", icon: User },
       { title: "All Parcels", url: "all-parcels", icon: Package },
     ],
     DeliverMan: [
+      { title: "Dashboard", url: "", icon: Gauge },
       { title: "My Delivery List", url: "my-delivery-list", icon: Truck },
       { title: "My Reviews", url: "my-reviews", icon: Star },
     ],
     User: [
+      { title: "Dashboard", url: "", icon: Gauge },
       { title: "Book Parcel", url: "book-parcel", icon: BookDown },
       { title: "My Parcels", url: "my-parcels", icon: Package },
       { title: "Profile", url: "profile", icon: User },
