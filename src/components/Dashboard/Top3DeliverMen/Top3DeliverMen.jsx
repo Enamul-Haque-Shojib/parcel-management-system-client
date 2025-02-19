@@ -16,6 +16,7 @@ const Top3DeliverMen = () => {
     axiosInstance
       .get("/statistics/top-deliver-men")
       .then((res) => {
+        console.log(res)
         setTopDeliverMen(res.data.data);
       });
   }, []);

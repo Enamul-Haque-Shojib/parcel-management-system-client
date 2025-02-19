@@ -1,4 +1,5 @@
 import useAuth from "@/hooks/useAuth";
+import { Menu, X } from "lucide-react";
 import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 
@@ -37,6 +38,13 @@ const Navbar = () => {
             activeclassName="text-yellow-300"
           >
             Home
+          </NavLink>
+          <NavLink
+            to="/about"
+            className="transition duration-300 hover:text-yellow-300"
+            activeclassName="text-yellow-300"
+          >
+            About
           </NavLink>
           {user ? (
             <>
@@ -101,7 +109,7 @@ const Navbar = () => {
           className="lg:hidden text-2xl focus:outline-none"
           onClick={handleNavField}
         >
-          {open ? <i className="fa-solid fa-xmark"></i> : <i className="fa-solid fa-bars"></i>}
+          {open ? <X></X> : <Menu></Menu>}
         </button>
       </div>
 
@@ -113,7 +121,7 @@ const Navbar = () => {
       >
         <div className="p-6">
           <button className="text-2xl mb-4 focus:outline-none" onClick={handleNavField}>
-            <i className="fa-solid fa-xmark"></i>
+            <X></X>
           </button>
           <div className="space-y-4">
             <NavLink
@@ -123,6 +131,14 @@ const Navbar = () => {
               onClick={handleNavField}
             >
               Home
+            </NavLink>
+            <NavLink
+              to="/about"
+              className="block text-lg hover:text-indigo-500"
+              activeclassName="text-indigo-500"
+              onClick={handleNavField}
+            >
+              About
             </NavLink>
             {user ? (
               <>

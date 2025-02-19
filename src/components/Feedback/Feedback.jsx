@@ -16,7 +16,7 @@ const Feedback = () => {
 
       axiosInstance.get(`/auth/feedback`)
       .then(res => {
-        console.log(res)
+        
         setFeedbacks(res.data.data);
     })
 

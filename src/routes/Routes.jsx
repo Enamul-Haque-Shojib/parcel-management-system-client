@@ -23,6 +23,7 @@ import AllUsers from "@/pages/Dashboard/Admin/AllUsers";
 import WelcomePage from "@/pages/Dashboard/WelcomePage/WelcomePage";
 import PrivateRoute from "./PrivateRoute";
 import Profile from "@/pages/Dashboard/Customer/Profile";
+import About from "@/pages/About/About";
 
 
 
@@ -37,7 +38,11 @@ export const router = createBrowserRouter([
           {
             path: '/',
             element: <Home />,
-          }
+          },
+          {
+            path: '/about',
+            element: <About />,
+          },
         ],
     },
     { path: '/login', element: <Login /> },

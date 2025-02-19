@@ -29,15 +29,11 @@ const Banner = () => {
           >
             Parcel Management System
           </h1>
-          <p className="text-lg md:text-xl lg:text-2xl text-gray-200 font-medium max-w-2xl">
+          <p className="text-lg md:text-xl lg:text-2xl font-medium max-w-2xl text-black">
             Secure, fast, and reliable parcel tracking made effortless. Manage
             your deliveries with ease and confidence.
           </p>
-          <button
-            className="mt-6 px-8 py-3 bg-red-600 text-white rounded-full font-semibold text-lg shadow-lg hover:bg-red-700 transition-transform transform hover:scale-105"
-          >
-            Get Started
-          </button>
+      
         </div>
       </div>
     </AspectRatio>
