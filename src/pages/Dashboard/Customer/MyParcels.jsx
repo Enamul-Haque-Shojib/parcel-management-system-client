@@ -31,6 +31,7 @@ const MyParcels = () => {
 
     return (
         <div>
+            <h1 className='text-center text-2xl'>My parcels</h1>
             <ParcelTable parcelData={myParcels} role={role}></ParcelTable>
         </div>
     );
