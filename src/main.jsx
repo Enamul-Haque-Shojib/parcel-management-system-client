@@ -7,7 +7,8 @@ import AuthProvider from './providers/AuthProvider'
 import { RouterProvider } from 'react-router-dom'
 import { Toaster } from './components/ui/toaster'
 
-
+import 'swiper/css';
+import 'swiper/css/navigation';
 
 
 

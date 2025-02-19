@@ -45,6 +45,7 @@ const Login = () => {
         description: "Logged in successfully",
       })
       navigate('/');
+      setLoading(false)
     } catch (error) {
       toast({
         description: "Invalid email or password. Please try again.",
