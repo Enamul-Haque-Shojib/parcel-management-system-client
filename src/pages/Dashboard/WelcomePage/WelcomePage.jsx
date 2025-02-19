@@ -1,14 +1,39 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar } from "@/components/ui/avatar";
 import Chart from "react-apexcharts";
+import useAxiosSecure from "@/hooks/useAxiosSecure";
+import useAuth from "@/hooks/useAuth";
 const WelcomePage = () => {
+  const axiosInstance = useAxiosSecure();
+  const {role,user} = useAuth();
+  const {displayName, email, photoURL} = user;
+  // console.log(user, role)
+  
+      const[dashboardData, setDashboardData] = useState({});
+      
+      const{onTheWay, delivered, pending} = dashboardData;
+      console.log(onTheWay);
+      useEffect(() => {
+      
+          axiosInstance.post(
+            `/statistics/dashboard-auth`,
+            {role, email},
+           
+          ).then(res => {
+            setDashboardData(res.data.data);
+           
+         })
+        
+          
+       
+      },[]);
   
 
     const pieChartOptions = {
       labels: ["Delivered", "Pending", "On the Way"],
     };
-    const pieChartSeries = [45, 25, 30];
+    const pieChartSeries = [delivered, pending, onTheWay];
   
     const users = [
       { name: "John Doe", image: "https://via.placeholder.com/40" },
@@ -26,11 +51,12 @@ const WelcomePage = () => {
         
         <Card className="col-span-1 flex items-center p-4">
           <Avatar className="w-16 h-16">
-            <img src="https://via.placeholder.com/100" alt="User" />
+            <img src={photoURL} alt="User" />
           </Avatar>
           <div className="ml-4">
-            <h2 className="text-lg font-bold">Welcome, User!</h2>
-            <p className="text-sm text-gray-500">Parcel Manager</p>
+            <h2 className="text-lg font-bold">Welcome, {displayName}!</h2>
+            <p className="text-sm text-gray-500">{email}</p>
+            <p className="text-sm text-gray-500">{role}</p>
           </div>
         </Card>
         
@@ -44,15 +70,15 @@ const WelcomePage = () => {
          {/* Delivery Stats */}
          <Card className="col-span-1 md:col-span-2 lg:col-span-3 flex justify-around p-4">
           <div className="text-center">
-            <h4 className="text-xl font-bold">45</h4>
+            <h4 className="text-xl font-bold">{delivered}</h4>
             <p className="text-gray-500">Delivered</p>
           </div>
           <div className="text-center">
-            <h4 className="text-xl font-bold">25</h4>
+            <h4 className="text-xl font-bold">{pending}</h4>
             <p className="text-gray-500">Pending</p>
           </div>
           <div className="text-center">
-            <h4 className="text-xl font-bold">30</h4>
+            <h4 className="text-xl font-bold">{onTheWay}</h4>
             <p className="text-gray-500">On the Way</p>
           </div>
         </Card>
