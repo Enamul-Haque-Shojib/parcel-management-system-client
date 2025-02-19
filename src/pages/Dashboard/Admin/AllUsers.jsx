@@ -22,7 +22,7 @@ const AllUsers = () => {
     return (
         <div>
 
-    
+<h1 className='text-center text-2xl'>All Users</h1>
         <UsersTable userData={customers} tableRole='User'></UsersTable>
 
         </div>

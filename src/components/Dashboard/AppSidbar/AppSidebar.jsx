@@ -43,11 +43,13 @@ const AppSidebar = ({ sidebarOpen }) => {
       { title: "All Users", url: "all-users", icon: User },
       { title: "All Delivery Men", url: "all-delivery-men", icon: User },
       { title: "All Parcels", url: "all-parcels", icon: Package },
+      { title: "Profile", url: "profile", icon: User },
     ],
     DeliverMan: [
       { title: "Dashboard", url: "", icon: Gauge },
       { title: "My Delivery List", url: "my-delivery-list", icon: Truck },
       { title: "My Reviews", url: "my-reviews", icon: Star },
+      { title: "Profile", url: "profile", icon: User },
     ],
     User: [
       { title: "Dashboard", url: "", icon: Gauge },

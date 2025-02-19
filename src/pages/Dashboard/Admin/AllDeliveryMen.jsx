@@ -28,7 +28,7 @@ const AllDeliveryMen = () => {
 
     return (
         <div>
-
+            <h1 className='text-center text-2xl'>All Deliver Men</h1>
                 <UsersTable userData={deliveryMen} tableRole='DeliverMan'></UsersTable>
         </div>
     );
