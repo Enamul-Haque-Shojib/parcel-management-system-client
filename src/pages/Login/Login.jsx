@@ -35,7 +35,7 @@ const Login = () => {
 
   const onSubmit = async (data) => {
     const { email, password } = data;
-    setLoginError(""); // Reset login error
+    setLoginError(""); 
 
     try {
       const res = await signIn(email, password);
