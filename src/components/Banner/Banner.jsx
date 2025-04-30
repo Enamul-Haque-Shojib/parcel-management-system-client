@@ -14,12 +14,12 @@ const Banner = () => {
         }}
         className="h-full w-full rounded-lg shadow-md relative"
       >
-        {/* Gradient Overlay */}
+        
         <div
           className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-black opacity-60 rounded-lg"
         />
 
-        {/* Content */}
+        
         <div className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center">
           <h1
             className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4"
