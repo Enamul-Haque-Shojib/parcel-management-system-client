@@ -86,7 +86,7 @@ const {user, role} = useAuth()
         initialData,
         {
           headers: {
-            Authorization: `${token.token}`, // Correctly set the headers
+            Authorization: `${token.token}`, 
           },
         }
       );
