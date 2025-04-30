@@ -91,7 +91,7 @@ const UpdateParcel = () => {
               onSubmit={form.handleSubmit(onSubmit)}
               className="space-y-8 grid grid-cols-1 md:grid-cols-2 gap-6"
             >
-              {/* Sender Details Section */}
+              
               <div className="col-span-full">
                 <h2 className="text-xl font-semibold text-gray-700 mb-4">
                   Sender Details
