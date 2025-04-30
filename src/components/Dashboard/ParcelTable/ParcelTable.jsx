@@ -16,7 +16,7 @@ const ParcelTable = ({
  }) => {
 
   
-//  const role = "Admin"
+
   const renderHeaders = () => {
     if (role === "User") {
       return (
@@ -62,7 +62,7 @@ const ParcelTable = ({
                 </> 
       )
     }
-    // Add similar cases for "Admin" and "DeliverMan"
+    
   };
 
   return (
