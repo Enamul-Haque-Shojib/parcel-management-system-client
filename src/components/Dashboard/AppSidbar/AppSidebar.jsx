@@ -68,7 +68,7 @@ const AppSidebar = ({ sidebarOpen }) => {
         sidebarOpen ? "w-[260px]" : "w-[80px]"
       } bg-gradient-to-b from-gray-800 to-gray-900 text-white transition-all duration-300`}
     >
-      {/* Header */}
+      
       <SidebarHeader className="flex items-center justify-between py-4 px-4">
         <div className="flex items-center space-x-2">
           
@@ -77,7 +77,7 @@ const AppSidebar = ({ sidebarOpen }) => {
         <Link to='/'><Home className="w-5 h-5 hover:opacity-75" /></Link>
       </SidebarHeader>
 
-      {/* Content */}
+      
       <SidebarContent>
         <SidebarGroup>
           {/* <SidebarGroupLabel className="text-gray-400 uppercase tracking-wide px-4">
