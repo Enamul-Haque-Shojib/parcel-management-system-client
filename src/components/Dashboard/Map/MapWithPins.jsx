@@ -14,7 +14,7 @@ import iconUrl from "leaflet/dist/images/marker-icon.png";
 import iconShadow from "leaflet/dist/images/marker-shadow.png";
 import defaultCenterIconUrl from "../../../assets/navigation.png";
 
-// Default marker icons
+
 L.Marker.prototype.options.icon = L.icon({
   iconUrl,
   shadowUrl: iconShadow,
@@ -22,7 +22,7 @@ L.Marker.prototype.options.icon = L.icon({
   popupAnchor: [1, -34],
 });
 
-// Custom icon for the starting point
+
 const defaultCenterIcon = L.icon({
   iconUrl: defaultCenterIconUrl,
   shadowUrl: iconShadow,
