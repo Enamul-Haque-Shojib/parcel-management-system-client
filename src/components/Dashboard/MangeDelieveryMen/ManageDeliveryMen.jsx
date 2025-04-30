@@ -79,7 +79,7 @@ const ManageDeliveryMen = ({ parcelNumber, parcelId }) => {
   return (
     <DialogContent
   className="sm:max-w-[425px]"
-  aria-hidden={false} // Ensure the modal content is not hidden from assistive technologies
+  aria-hidden={false} 
 >
   <DialogHeader>
     <DialogTitle>{parcelNumber}</DialogTitle>
@@ -88,7 +88,7 @@ const ManageDeliveryMen = ({ parcelNumber, parcelId }) => {
   <div>
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        {/* Approximate Delivery Date */}
+        
         <FormField
           control={form.control}
           name="ApproximateDeliveryDate"
@@ -130,7 +130,7 @@ const ManageDeliveryMen = ({ parcelNumber, parcelId }) => {
           )}
         />
 
-        {/* Delivery Man */}
+        
         <FormField
           control={form.control}
           name="deliverMenId"

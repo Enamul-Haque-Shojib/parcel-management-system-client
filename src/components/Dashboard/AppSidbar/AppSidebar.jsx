@@ -112,7 +112,7 @@ const AppSidebar = ({ sidebarOpen }) => {
         </SidebarGroup>
       </SidebarContent>
 
-      {/* Footer */}
+      
       <SidebarFooter className="mt-auto px-4 py-6">
         <div className="flex items-center space-x-3">
           <div className="rounded-full bg-gray-600">
