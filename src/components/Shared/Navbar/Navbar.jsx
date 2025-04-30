@@ -1,26 +1,26 @@
 import useAuth from "@/hooks/useAuth";
-import { Menu, X } from "lucide-react";
+// import { Menu, X } from "lucide-react";
 import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 
 const Navbar = () => {
-  const [open, setOpen] = useState(false);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const { logOut, role, user } = useAuth();
+  // const [open, setOpen] = useState(false);
+  // const [dropdownOpen, setDropdownOpen] = useState(false);
+  // const { logOut, role, user } = useAuth();
 
-  const handleNavField = () => setOpen(!open);
+  // const handleNavField = () => setOpen(!open);
 
-  const handleLogOut = () => {
-    logOut()
-      .then(() => {
-        localStorage.removeItem("ParcelManagementSystemToken");
-      })
-      .catch(() => {
-        // Handle log out error if needed
-      });
-  };
+  // const handleLogOut = () => {
+  //   logOut()
+  //     .then(() => {
+  //       localStorage.removeItem("ParcelManagementSystemToken");
+  //     })
+  //     .catch(() => {
+  //       // Handle log out error if needed
+  //     });
+  // };
 
-  const toggleDropdown = () => setDropdownOpen((prev) => !prev);
+  // const toggleDropdown = () => setDropdownOpen((prev) => !prev);
 
   return (
     <div className="bg-gradient-to-r from-purple-600 to-indigo-600 shadow-md text-white sticky top-0 z-50">
@@ -46,7 +46,7 @@ const Navbar = () => {
           >
             About
           </NavLink>
-          {user ? (
+          {/* {user ? ( */}
             <>
               <NavLink
                 to="/dashboard"
@@ -86,7 +86,7 @@ const Navbar = () => {
                 )}
               </div>
             </>
-          ) : (
+          {/* ) : ( */}
             <>
               <NavLink
                 to="/register"
@@ -101,7 +101,7 @@ const Navbar = () => {
                 Login
               </NavLink>
             </>
-          )}
+          {/* )} */}
         </div>
 
         {/* Mobile Navigation Button */}
@@ -109,7 +109,7 @@ const Navbar = () => {
           className="lg:hidden text-2xl focus:outline-none"
           onClick={handleNavField}
         >
-          {open ? <X></X> : <Menu></Menu>}
+          {/* {open ? <X></X> : <Menu></Menu>} */}
         </button>
       </div>
 
@@ -121,7 +121,7 @@ const Navbar = () => {
       >
         <div className="p-6">
           <button className="text-2xl mb-4 focus:outline-none" onClick={handleNavField}>
-            <X></X>
+            {/* <X></X> */}
           </button>
           <div className="space-y-4">
             <NavLink
@@ -140,7 +140,7 @@ const Navbar = () => {
             >
               About
             </NavLink>
-            {user ? (
+            {/* {user ? ( */}
               <>
                 <Link
                   to="/dashboard"
@@ -156,7 +156,7 @@ const Navbar = () => {
                   Logout
                 </button>
               </>
-            ) : (
+            {/* ) : ( */}
               <>
                 <NavLink
                   to="/register"
@@ -175,7 +175,7 @@ const Navbar = () => {
                   Login
                 </NavLink>
               </>
-            )}
+            {/* )} */}
           </div>
         </div>
       </div>

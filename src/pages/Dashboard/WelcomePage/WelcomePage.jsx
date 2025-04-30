@@ -35,15 +35,15 @@ const WelcomePage = () => {
     };
     const pieChartSeries = [dashboardData?.delivered, dashboardData?.pending, dashboardData?.onTheWay];
   
-    const users = [
-      { name: "John Doe", image: "https://via.placeholder.com/40" },
-      { name: "Jane Smith", image: "https://via.placeholder.com/40" },
-    ];
+    // const users = [
+    //   { name: "John Doe", image: "https://via.placeholder.com/40" },
+    //   { name: "Jane Smith", image: "https://via.placeholder.com/40" },
+    // ];
   
-    const deliveryMen = [
-      { name: "Mike Johnson", image: "https://via.placeholder.com/40" },
-      { name: "Chris Lee", image: "https://via.placeholder.com/40" },
-    ];
+    // const deliveryMen = [
+    //   { name: "Mike Johnson", image: "https://via.placeholder.com/40" },
+    //   { name: "Chris Lee", image: "https://via.placeholder.com/40" },
+    // ];
   
     return (
       <div className="p-6 grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-2">
