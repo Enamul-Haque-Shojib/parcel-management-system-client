@@ -37,3 +37,15 @@ User can post parcel with parcel weight, price , for location longitude and lati
 - jwt, 
 - mongoose
 - zod
+
+### **Credentials**
+ #### Admin:
+ - email: admin@gmail.com
+ - pass: 123456789
+ #### Deliver Man:
+ - email: delivertest@gmail.com
+ - pass: 123456789
+ #### User:
+ - email: gazi@gmail.com
+ - pass: 123456789
+
